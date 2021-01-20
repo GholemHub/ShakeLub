@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText Email;
-    private EditText Password;
+    private EditText textEmail;
+    private EditText textPassword;
 
     private Button SignIn;
     private Button GoogleSignIn;
@@ -31,23 +31,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView SignUp;
     private TextView ForgotPassword;
 
-    FirebaseAuth auth;
-    FirebaseDatabase db;
-    DatabaseReference users;
-    ConstraintLayout root;
-    FirebaseAuth.AuthStateListener listener;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance();
-        users = db.getReference("Users");
+        fAuth = FirebaseAuth.getInstance();
 
-        Email = findViewById(R.id.editTextTextEmailAddress);
-        Password = findViewById(R.id.editTextTextPassword);
+
+        textEmail = findViewById(R.id.editTextTextEmailAddress);
+        textPassword = findViewById(R.id.editTextTextPassword);
 
         SignIn = findViewById(R.id.SignIn);
         GoogleSignIn = findViewById(R.id.GoogleSignIn);
@@ -55,41 +50,47 @@ public class MainActivity extends AppCompatActivity {
         SignUp = findViewById(R.id.SignUp);
         ForgotPassword = findViewById(R.id.ForgotPassword);
 
-
-    }
-
-    private void Aurorization() {
-
-        if (TextUtils.isEmpty(Email.getText().toString())) {
-            Email.setError("Email is Required.");
-            Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
-            //progressBar.setVisibility(View.INVISIBLE);
-            return;
-        }
-        if (TextUtils.isEmpty(Password.getText().toString())) {
-            Password.setError("Password is Required.");
-            Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_LONG).show();
-            //progressBar.setVisibility(View.INVISIBLE);
-            return;
-        }
-
-        auth.signInWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(MainActivity.this, "Login Succesful", Toast.LENGTH_SHORT).show();
-
-                        startActivity(new Intent(MainActivity.this, HomePage.class));
-                        //progressBar.setVisibility(View.INVISIBLE);
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+        SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "The email or password is not correct", Toast.LENGTH_LONG).show();
-                //progressBar.setVisibility(View.INVISIBLE);
-                //Snackbar.make(root, "Eroor Sign In " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RegiterActivity.class));
             }
         });
+
+        SignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Email = textEmail.getText().toString().trim();
+                String Password = textPassword.getText().toString().trim();
+
+                if (TextUtils.isEmpty(Email)) {
+                    textEmail.setError("Email is Required");
+                    return;
+                }
+
+                if (Password.length() < 6) {
+                    textPassword.setError("Too small Password");
+                    return;
+                }
+
+                fAuth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Sign In Faled " +
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+                //startActivity(new Intent(getApplicationContext(), RegiterActivity.class));
+            }
+        });
+
+
     }
 }

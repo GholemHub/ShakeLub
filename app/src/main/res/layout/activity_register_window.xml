@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegiterActivity">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="75dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="40dp"
+        android:text="Email"
+        android:textColor="#F85F6A"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextNickname" />
+
+    <TextView
+        android:id="@+id/textViewNickName"
+        android:layout_width="103dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:text="Nickname"
+        android:textColor="#F85F6A"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/EditTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="Your email address"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <EditText
+        android:id="@+id/EditTextNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:ems="10"
+        android:hint="Create Your Nickname"
+        android:inputType="textEmailAddress"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNickName" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="75dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="40dp"
+        android:text="Password"
+        android:textColor="#F85F6A"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail" />
+
+    <EditText
+        android:id="@+id/EditTextPassword"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:ems="10"
+        android:hint="Create Your Password"
+        android:inputType="textPassword"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Button
+        android:id="@+id/BtnSignUp"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="50dp"
+        android:text="Sign Up"
+        app:backgroundTint="#F85F6A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:text="Sign Up"
+        android:textColor="#35424A"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="I agree to the"
+        android:textColor="@color/dark1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="37dp"
+        android:text="and"
+        android:textColor="@color/dark1"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxPolicy"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text=" Terms of Services"
+        android:textColor="@color/coral"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxPolicy"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="6dp"
+        android:text="Peivacy Policy"
+        android:textColor="@color/coral"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="44dp"
+        android:text="Have an Account?"
+        android:textColor="@color/grey1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BtnSignUp" />
+
+    <TextView
+        android:id="@+id/RegSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="44dp"
+        android:text="Sign In"
+        android:textColor="@color/coral"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/BtnSignUp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="81dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:visibility="invisible" />
+</androidx.constraintlayout.widget.ConstraintLayout>
