@@ -125,17 +125,12 @@ public class RegiterActivity extends AppCompatActivity {
                                     Log.d(TAG, "onSuccess: user Profile is created for " + userID);
                                 }
                             });
-                                VerifyUser();
 
+                                //VerifyUser();
 
-                            try {
-                                if(fAuth.getCurrentUser().isEmailVerified()){
+                                //if(fAuth.getCurrentUser().isEmailVerified()){
                                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                }
-
-                            }catch (Exception e){
-
-                            }
+                                //}
 
                         }else{
                             Toast.makeText(getApplicationContext(), "User Does not Created " +
