@@ -8,14 +8,16 @@
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="@color/coral"
     >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="94dp"
-        app:srcCompat="@drawable/ic_launcher_shake_lab"
+        app:srcCompat="@drawable/ic_launcher_shake_lab_white"
         tools:ignore="VectorDrawableCompat"
+        android:layout_gravity="center"
 
         />
 
@@ -23,15 +25,17 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Shake Lab"
+        android:layout_gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/dark1"
+        android:textColor="@color/white"
         />
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="gnolazrna@gmail.com"
-        android:textColor="@color/dark1"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
         />
 
 </LinearLayout>

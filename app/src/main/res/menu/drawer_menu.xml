@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    >
 
-    <group android:checkableBehavior="single">
+<group>
         <item android:id="@+id/nav_news"
             android:title="News"
             android:icon="@drawable/ic_round_analytics_24" />
@@ -16,13 +17,16 @@
         <item android:id="@+id/nav_science"
             android:title="Science"
             android:icon="@drawable/ic_science" />
-        <item android:id="@+id/nav_profile"
-            android:title="My profile"
-            android:icon="@drawable/ic_person" />
-        <item android:id="@+id/nav_settings"
-            android:title="Settings"
-            android:icon="@drawable/ic_settings" />
+</group>
 
-    </group>
-
+    <item android:title="Change">
+        <menu>
+            <item android:id="@+id/nav_profile"
+                android:title="My profile"
+                android:icon="@drawable/ic_person" />
+            <item android:id="@+id/nav_settings"
+                android:title="Settings"
+                android:icon="@drawable/ic_settings" />
+        </menu>
+    </item>
 </menu>
