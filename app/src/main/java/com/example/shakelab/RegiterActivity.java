@@ -100,11 +100,7 @@ public class RegiterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(!Policy.isActivated()){
-                    Policy.setError("Policy is Required");
-                    progressBar.setVisibility(View.INVISIBLE);
-                    return;
-                }
+
 
                 fAuth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

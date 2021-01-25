@@ -8,7 +8,7 @@
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:background="@color/coral"
+    android:background="@drawable/bar3"
     >
 
     <ImageView
@@ -31,9 +31,10 @@
         />
 
     <TextView
+        android:id="@+id/users_email"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="gnolazrna@gmail.com"
+        android:text="XXX"
         android:layout_gravity="center"
         android:textColor="@color/white"
         />

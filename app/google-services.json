@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "988493770020",
-    "firebase_url": "https://shakelab-golem-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "shakelab-golem",
-    "storage_bucket": "shakelab-golem.appspot.com"
+    "project_number": "586384573822",
+    "firebase_url": "https://shakelab-302718-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "shakelab-302718",
+    "storage_bucket": "shakelab-302718.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:988493770020:android:b76dda55328eb403e9d7b1",
+        "mobilesdk_app_id": "1:586384573822:android:6fcbb26cb44ceb2a989f2f",
         "android_client_info": {
           "package_name": "com.example.shakelab"
         }
       },
       "oauth_client": [
         {
-          "client_id": "988493770020-enoht49ssbvdoo2820bbv8srrhpcn24r.apps.googleusercontent.com",
+          "client_id": "586384573822-kelb08vjr84f4qta49mpo45c0j5ofj29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shakelab",
+            "certificate_hash": "8f89b3613872522787e84d67d6bbf8a1165a1341"
+          }
+        },
+        {
+          "client_id": "586384573822-bf46b0mi0tpuofhsmc9p9aq33e1jkigm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDKf7H6wBR1gvqFAXVvppYT15JCI9wBg8U"
+          "current_key": "AIzaSyCDsP8hiDriwBZdK3ncOYrzPEWQkVa4nhE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "988493770020-enoht49ssbvdoo2820bbv8srrhpcn24r.apps.googleusercontent.com",
+              "client_id": "586384573822-bf46b0mi0tpuofhsmc9p9aq33e1jkigm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
