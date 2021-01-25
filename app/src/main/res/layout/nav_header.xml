@@ -8,11 +8,12 @@
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:background="@drawable/bar3"
-    >
 
+    android:background="@drawable/bar2"
+    >
+    <!--"
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/users_image"
         android:layout_width="wrap_content"
         android:layout_height="94dp"
         app:srcCompat="@drawable/ic_launcher_shake_lab_white"
@@ -20,15 +21,26 @@
         android:layout_gravity="center"
 
         />
+        -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="center"
+        android:id="@+id/users_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_launcher_shake_lab_white"
+
+        />
+
 
     <TextView
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Shake Lab"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:text="Shake Lab"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
-        />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/users_email"
