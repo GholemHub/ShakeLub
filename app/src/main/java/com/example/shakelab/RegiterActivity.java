@@ -114,6 +114,7 @@ public class RegiterActivity extends AppCompatActivity {
                             Map<String,Object> user = new HashMap<>();
                             user.put("nickname",Nickname);
                             user.put("email",Email);
+                            user.put("password",Password);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -121,13 +122,10 @@ public class RegiterActivity extends AppCompatActivity {
                                     Log.d(TAG, "onSuccess: user Profile is created for " + userID);
                                 }
                             });
-
                                 //VerifyUser();
-
                                 //if(fAuth.getCurrentUser().isEmailVerified()){
                                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                                 //}
-
                         }else{
                             Toast.makeText(getApplicationContext(), "User Does not Created " +
                                     task.getException().getMessage(), Toast.LENGTH_SHORT).show();

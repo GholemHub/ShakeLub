@@ -40,9 +40,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SetGoogleNickname.ExampleDialodListener{
 
     private EditText textEmail;
     private EditText textPassword;
@@ -57,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
     private SignInButton signInButton;
 
+
+    @Override
+    public void applyTexts(String username, String password) {
+        Toast.makeText(getApplicationContext(), username + " " + password,Toast.LENGTH_SHORT ).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signIn();
             }
         });
@@ -180,6 +190,43 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void RegisterUserData() {
+
+        SetGoogleNickname setGoogleNickname = new SetGoogleNickname();
+        setGoogleNickname.show(getSupportFragmentManager(), "example dialog");
+
+        /*fAuth.createUserWithEmailAndPassword(fAuth.getCurrentUser().getEmail(),fAuth.getCurrentUser()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+                    Toast.makeText(RegiterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    userID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fStore.collection("users").document(userID);
+                    Map<String,Object> user = new HashMap<>();
+                    user.put("nickname",Nickname);
+                    user.put("email",Email);
+
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                        }
+                    });
+                    //VerifyUser();
+                    //if(fAuth.getCurrentUser().isEmailVerified()){
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    //}
+                }else{
+                    Toast.makeText(getApplicationContext(), "User Does not Created " +
+                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -211,7 +258,10 @@ public class MainActivity extends AppCompatActivity {
     private final static int RC_SIGN_IN = 123;
 
     private void signIn() {
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        RegisterUserData();
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -243,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = fAuth.getCurrentUser();
+                            //Google Start Activity
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
