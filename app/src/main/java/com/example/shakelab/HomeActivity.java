@@ -62,9 +62,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (fAuth != null){
             //Display User Image from Google Account
             //Objects.requireNonNull() prevents getPhotoUrl() from returning a NullPointerException
-            String personImage = Objects.requireNonNull(fAuth.getCurrentUser().getPhotoUrl()).toString();
-            ImageView navUserImage = (ImageView) headerView.findViewById(R.id.users_image);
-            Glide.with(this).load(personImage).into(navUserImage);
+            /*String personImage = Objects.requireNonNull(fAuth.getCurrentUser().getPhotoUrl()).toString();
+            if(headerView.findViewById(R.id.users_image) != null) {
+                ImageView navUserImage = (ImageView) headerView.findViewById(R.id.users_image);
+                Glide.with(this).load(personImage).into(navUserImage);
+            }*/
+
         }
 
     }
