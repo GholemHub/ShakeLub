@@ -40,12 +40,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -250,6 +259,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //public CollectionReference noteRef = fStore.collection("users");
+    private ArrayList<ContactsContract.CommonDataKinds.Note> mNotes = new ArrayList<>();
+    //private NoteRecyclerViewAdapter mNoteRecyclerViewAdapter;
+/// ///////////////////!!
+    private void getUsers(){
+        CollectionReference usersCollectionRef = fStore.collection("users");
+
+        Query usersQuery = usersCollectionRef
+                .whereEqualTo("email", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        usersQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot docoment: task.getResult()){
+                        ContactsContract.CommonDataKinds.Note note = docoment.toObject(ContactsContract.CommonDataKinds.Note.class);
+                        mNotes.add(note);
+                    }
+
+
+                }else{
+                    Toast.makeText(MainActivity.this, "Query Failed. Check Logs.", Toast.LENGTH_SHORT).show();
+                    //makeSnackBarMessage("Query Failed. C");
+                }
+            }
+
+
+        });
+    }
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -267,6 +304,13 @@ public class MainActivity extends AppCompatActivity {
                             //SetGoogleNickname setGoogleNickname = new SetGoogleNickname();
                             //setGoogleNickname.show(getSupportFragmentManager(), "example dialog");
 
+                            for (ContactsContract.CommonDataKinds.Note notes: mNotes) {
+                                Toast.makeText(MainActivity.this, notes.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+
+                            /*
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> userPut = new HashMap<>();
@@ -274,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                             userPut.put("email",fAuth.getCurrentUser().getEmail());
 
                             fStore.collection("users").add(userPut);
-
+                            */
 
 
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -282,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
                             //Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            Toast.makeText(MainActivity.this,"Sorry auth failed",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this,"Sorry auth failed",Toast.LENGTH_SHORT).show();
                         }
                         // ...
                     }
