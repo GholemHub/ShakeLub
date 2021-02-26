@@ -21,7 +21,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView SignUp;
     private TextView ForgotPassword;
 
-    FirebaseFirestore fStore;
-    FirebaseAuth fAuth;
+    static FirebaseFirestore fStore;
+    static FirebaseAuth fAuth;
 
     private SignInButton signInButton;
     public static final String TAG = "TAG";
@@ -223,11 +225,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void CreateRequestGoogleSignIn() {
         // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions
+       GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
+// TRY TO USE THIS!
+
+       /* GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.PLUS_LOGIN))
+                .requestScopes(new Scope(Scopes.PLUS_ME))
+                .requestEmail()
+                .build();*/
 
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(this, gso);
     }
@@ -259,36 +269,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //public CollectionReference noteRef = fStore.collection("users");
-    private ArrayList<ContactsContract.CommonDataKinds.Note> mNotes = new ArrayList<>();
-    //private NoteRecyclerViewAdapter mNoteRecyclerViewAdapter;
+    public static ArrayList<ContactsContract.CommonDataKinds.Note> mNotes = new ArrayList<>();
+
+
 /// ///////////////////!!
-    private void getUsers(){
+    public static void getUsers(){
         CollectionReference usersCollectionRef = fStore.collection("users");
-
-        Query usersQuery = usersCollectionRef
-                .whereEqualTo("email", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        usersQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot docoment: task.getResult()){
-                        ContactsContract.CommonDataKinds.Note note = docoment.toObject(ContactsContract.CommonDataKinds.Note.class);
-                        mNotes.add(note);
+        Query usersQuery = null;
+        if(fAuth != null){
+            usersQuery = usersCollectionRef
+                    .whereEqualTo("email", fAuth.getInstance().getCurrentUser().getUid());
+            usersQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot docoment: task.getResult()){
+                            ContactsContract.CommonDataKinds.Note note = docoment.toObject(ContactsContract.CommonDataKinds.Note.class);
+                            mNotes.add(note);
+                        }
+                    }else{
+                        //Toast.makeText(MainActivity.this, "Query Failed. Check Logs.", Toast.LENGTH_SHORT).show();
+                        //makeSnackBarMessage("Query Failed. C");
                     }
-
-
-                }else{
-                    Toast.makeText(MainActivity.this, "Query Failed. Check Logs.", Toast.LENGTH_SHORT).show();
-                    //makeSnackBarMessage("Query Failed. C");
                 }
-            }
 
 
-        });
+            });
+        }
+
     }
 
+
     private void firebaseAuthWithGoogle(String idToken) {
+        //getUsers();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         fAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

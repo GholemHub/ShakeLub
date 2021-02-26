@@ -1,5 +1,6 @@
 package com.example.shakelab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,11 +28,10 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
-
-    FirebaseAuth fAuth;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,53 +44,47 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+        toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigarion_drawer_open,R.string.navigarion_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
 
-        fAuth = FirebaseAuth.getInstance();
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
-        View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.users_email);
-        navUsername.setText(fAuth.getCurrentUser().getEmail());
 
-        if (fAuth != null){
-            //Display User Image from Google Account
-            //Objects.requireNonNull() prevents getPhotoUrl() from returning a NullPointerException
-            /*String personImage = Objects.requireNonNull(fAuth.getCurrentUser().getPhotoUrl()).toString();
-            if(headerView.findViewById(R.id.users_image) != null) {
-                ImageView navUserImage = (ImageView) headerView.findViewById(R.id.users_image);
-                Glide.with(this).load(personImage).into(navUserImage);
-            }*/
+        navigationView.bringToFront();
 
-        }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_profile:
+
+                        break;
+                    case R.id.nav_search:
+
+                        startActivity(new Intent(getApplicationContext(), search.class));
+                        break;
+                }
+                return false;
+            }
+        });
 
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_profile:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                break;
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
         }
-        return true;
-    }
-
-    @Override
-    public void onBackPressed(){
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }else{
-            super.onBackPressed();
-        }
-
+        return super.onOptionsItemSelected(item);
     }
 
 }
