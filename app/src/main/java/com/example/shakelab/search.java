@@ -55,14 +55,24 @@ public class search extends AppCompatActivity {
             }
         });
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigarion_drawer_open, R.string.navigarion_drawer_close);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        drawer = findViewById(R.id.drawer_layout);
+
+        toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navigarion_drawer_open,R.string.navigarion_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

@@ -23,10 +23,15 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="88dp" />
+
+
+        </ScrollView>
 
     </LinearLayout>
 
