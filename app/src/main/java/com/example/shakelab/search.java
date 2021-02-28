@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 import static com.example.shakelab.MainActivity.mNotes;
 
-public class search extends AppCompatActivity {
+public class search extends AppCompatActivity{
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
@@ -101,6 +102,16 @@ public class search extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Note note = documentSnapshot.toObject(Note.class);
+                String id = documentSnapshot.getId();
+                String path = documentSnapshot.getReference().getPath();
+                Toast.makeText(search.this, "Position " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -124,6 +135,7 @@ public class search extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }
