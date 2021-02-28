@@ -20,8 +20,8 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     @Override
     protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
         holder.textViewShakeName.setText(model.getShakeName());
-        holder.textViewIngredients.setText(model.getIngredients());
-        holder.textViewLayers.setText(String.valueOf(model.getLayers()));
+
+        holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
     }
 
     @NonNull
@@ -36,14 +36,14 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     class NoteHolder extends RecyclerView.ViewHolder{
 
         TextView textViewShakeName;
-        TextView textViewIngredients;
+
         TextView textViewLayers;
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
 
             textViewShakeName = itemView.findViewById(R.id.text_view_shake_name);
-            textViewIngredients = itemView.findViewById(R.id.text_view_shake_ingredients);
+
             textViewLayers =  itemView.findViewById(R.id.text_view_layers);
 
         }

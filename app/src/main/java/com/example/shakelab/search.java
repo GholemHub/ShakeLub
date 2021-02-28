@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -34,7 +36,7 @@ public class search extends AppCompatActivity {
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference notebookRef = db.collection("Notebook");
+    private CollectionReference notebookRef = db.collection("shakes");
 
     private NoteAdapter adapter;
 
@@ -80,14 +82,17 @@ public class search extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
     }
 
-    private void setUpRecyclerView() {
-        Query query = notebookRef.orderBy("layers", Query.Direction.DESCENDING);
+    private DatabaseReference usersRef;
 
-        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>().
-                setQuery(query, Note.class)
+    private void setUpRecyclerView() {
+        Query query = notebookRef.orderBy("countOfLayers", Query.Direction.DESCENDING);
+
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
+
+        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
                 .build();
 
         adapter = new NoteAdapter(options);
@@ -111,9 +116,6 @@ public class search extends AppCompatActivity {
 
         adapter.stopListening();
     }
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
