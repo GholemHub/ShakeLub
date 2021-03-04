@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import static com.example.shakelab.MainActivity.mNotes;
 
-public class search extends AppCompatActivity{
+public class search extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
@@ -106,12 +106,21 @@ public class search extends AppCompatActivity{
         adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
                 Note note = documentSnapshot.toObject(Note.class);
                 String id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
-                Toast.makeText(search.this, "Position " + position, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(search.this, "Position " + note.getCountOfLayers(), Toast.LENGTH_SHORT).show();
+                openDialog(note);
             }
         });
+    }
+
+    private void openDialog(Note note) {
+
+        InfoShakeDialog infoShakeDialog = new InfoShakeDialog(note);
+        infoShakeDialog.show(getSupportFragmentManager(), "exemple dialog");
     }
 
     @Override
