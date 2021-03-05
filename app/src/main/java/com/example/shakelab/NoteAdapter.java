@@ -3,6 +3,8 @@ package com.example.shakelab;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,27 +14,67 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteHolder> {
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteHolder> implements Filterable {
 private OnItemClickListener listener;
+
+    public NoteAdapter(@NonNull FirestoreRecyclerOptions<Note> options, List<Note> noteList) {
+        super(options);
+        this.noteList = noteList;
+        noteListFull = new ArrayList<>(noteList);
+    }
     public NoteAdapter(@NonNull FirestoreRecyclerOptions<Note> options) {
         super(options);
+        //this.noteList = noteList;
+        //noteListFull = new ArrayList<>(noteList);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
-        holder.textViewShakeName.setText(model.getShakeName());
+    public void updateOptions(@NonNull FirestoreRecyclerOptions<Note> options) {
+        super.updateOptions(options);
 
-        holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
     }
 
-    @NonNull
+    public  List<Note> noteList;
+    private List<Note> noteListFull;
+
     @Override
-    public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_item, parent, false);
-
-        return new NoteHolder(v);
+    public Filter getFilter() {
+        return noteFilter;
     }
+
+    private Filter noteFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Note> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(noteListFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Note note: noteListFull) {
+                    if(note.getShakeName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(note);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            noteList.clear();
+            noteList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     class NoteHolder extends RecyclerView.ViewHolder{
 
@@ -66,4 +108,19 @@ private OnItemClickListener listener;
     }
 
 
+    @Override
+    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
+        holder.textViewShakeName.setText(model.getShakeName());
+
+        holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
+    }
+
+    @NonNull
+    @Override
+    public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.note_item, parent, false);
+
+        return new NoteHolder(v);
+    }
 }

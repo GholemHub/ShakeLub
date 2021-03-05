@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.shakelab.MainActivity.mNotes;
 
@@ -38,6 +44,8 @@ public class search extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference notebookRef = db.collection("shakes");
+
+    private SearchView search_view;
 
     private NoteAdapter adapter;
 
@@ -73,6 +81,33 @@ public class search extends AppCompatActivity {
             }
         });
 
+
+        search_view = findViewById(R.id.search_view);
+
+       search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Query query = notebookRef
+                        .whereEqualTo("shakeName", newText)
+                        .orderBy("countOfLayers", Query.Direction.DESCENDING);
+
+                //usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
+
+                FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                        .setQuery(query, Note.class)
+                        .build();
+
+                adapter.updateOptions(options);
+
+                return false;
+            }
+        });
+
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -87,7 +122,20 @@ public class search extends AppCompatActivity {
 
     private DatabaseReference usersRef;
 
+    public List<Note> ls = new ArrayList<>();
+
+
+
     private void setUpRecyclerView() {
+
+       /* Note n1 = new Note("1","2", 3);
+        Note n2 = new Note("2","2", 3);
+        Note n3 = new Note("3","2", 3);
+
+        ls.add(n1);
+        ls.add(n2);
+        ls.add(n3);*/
+
         Query query = notebookRef.orderBy("countOfLayers", Query.Direction.DESCENDING);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
@@ -96,7 +144,11 @@ public class search extends AppCompatActivity {
                 .setQuery(query, Note.class)
                 .build();
 
-        adapter = new NoteAdapter(options);
+
+
+
+
+        adapter = new NoteAdapter(options, ls);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

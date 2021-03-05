@@ -2,7 +2,6 @@ package com.example.shakelab;
 
 public class Note {
     private String shakeName;
-
     private int countOfLayers;
 
     public Note(){}
