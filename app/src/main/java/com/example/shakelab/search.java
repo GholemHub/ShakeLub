@@ -92,17 +92,30 @@ public class search extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Query query = notebookRef
-                        .whereEqualTo("shakeName", newText)
-                        .orderBy("countOfLayers", Query.Direction.DESCENDING);
+                Query query;
 
-                //usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
+                if(newText.isEmpty()){
+                    query = notebookRef
+                            .orderBy("countOfLayers", Query.Direction.DESCENDING);
 
-                FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
-                        .setQuery(query, Note.class)
-                        .build();
+                    FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                            .setQuery(query, Note.class)
+                            .build();
+                    adapter.updateOptions(options);
+                }else{
 
-                adapter.updateOptions(options);
+                    query = notebookRef
+                            
+                            .whereEqualTo("shakeName", newText)
+                            .orderBy("countOfLayers", Query.Direction.DESCENDING);
+
+                    FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                            .setQuery(query, Note.class)
+                            .build();
+
+                    adapter.updateOptions(options);
+
+                }
 
                 return false;
             }
