@@ -32,6 +32,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ public class search extends AppCompatActivity {
                 }else{
 
                     query = notebookRef
-                            
+
                             .whereEqualTo("shakeName", newText)
                             .orderBy("countOfLayers", Query.Direction.DESCENDING);
 
@@ -141,14 +142,6 @@ public class search extends AppCompatActivity {
 
     private void setUpRecyclerView() {
 
-       /* Note n1 = new Note("1","2", 3);
-        Note n2 = new Note("2","2", 3);
-        Note n3 = new Note("3","2", 3);
-
-        ls.add(n1);
-        ls.add(n2);
-        ls.add(n3);*/
-
         Query query = notebookRef.orderBy("countOfLayers", Query.Direction.DESCENDING);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
@@ -156,10 +149,6 @@ public class search extends AppCompatActivity {
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
                 .build();
-
-
-
-
 
         adapter = new NoteAdapter(options, ls);
 

@@ -23,6 +23,7 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -32,12 +33,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
+    private FirebaseFirestore fStore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        fStore = FirebaseFirestore.getInstance();
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,12 +55,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
         NavigationView navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.bringToFront();
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
