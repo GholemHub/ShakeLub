@@ -72,6 +72,10 @@ public class HomeActivity extends AppCompatActivity {
 
                         startActivity(new Intent(getApplicationContext(), search.class));
                         break;
+                    case R.id.nav_create:
+                        startActivity(new Intent(getApplicationContext(), Create.class));
+                        break;
+
                 }
                 return false;
             }

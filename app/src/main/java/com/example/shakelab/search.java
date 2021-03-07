@@ -3,41 +3,29 @@ package com.example.shakelab;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.DragStartHelper;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.shakelab.MainActivity.mNotes;
 
 public class search extends AppCompatActivity {
 
@@ -47,7 +35,7 @@ public class search extends AppCompatActivity {
     private CollectionReference notebookRef = db.collection("shakes");
 
     private SearchView search_view;
-
+    private FloatingActionButton go_to_create_Layout;
     private NoteAdapter adapter;
 
     @Override
@@ -76,6 +64,9 @@ public class search extends AppCompatActivity {
                     case R.id.nav_search:
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         break;
+                    case R.id.nav_create:
+                        startActivity(new Intent(getApplicationContext(), Create.class));
+                        break;
                 }
 
                 return false;
@@ -84,7 +75,14 @@ public class search extends AppCompatActivity {
 
 
         search_view = findViewById(R.id.search_view);
+        go_to_create_Layout = findViewById(R.id.go_to_create_Layout);
 
+        go_to_create_Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Create.class));
+            }
+        });
        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

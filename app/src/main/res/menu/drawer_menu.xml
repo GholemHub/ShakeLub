@@ -14,7 +14,7 @@
         <item android:id="@+id/nav_search"
             android:title="Find"
             android:icon="@drawable/ic_search" />
-        <item android:id="@+id/nav_science"
+        <item android:id="@+id/nav_create"
             android:title="Science"
             android:icon="@drawable/ic_science" />
 </group>
