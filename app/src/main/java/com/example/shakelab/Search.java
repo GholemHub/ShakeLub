@@ -27,10 +27,11 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class search extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference notebookRef = db.collection("shakes");
 
@@ -55,8 +56,7 @@ public class search extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        Toast.makeText(search.this, "Search", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(Search.this, "Search", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_profile:
 
@@ -68,10 +68,18 @@ public class search extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), Create.class));
                         break;
                 }
-
                 return false;
             }
         });
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+
+        toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navigarion_drawer_open,R.string.navigarion_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
 
         search_view = findViewById(R.id.search_view);
@@ -83,7 +91,10 @@ public class search extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Create.class));
             }
         });
-       search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+
+        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -119,17 +130,6 @@ public class search extends AppCompatActivity {
                 return false;
             }
         });
-
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-
-        toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
-                R.string.navigarion_drawer_open,R.string.navigarion_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
     }
 
     private DatabaseReference usersRef;
@@ -163,7 +163,7 @@ public class search extends AppCompatActivity {
                 String id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
 
-                Toast.makeText(search.this, "Position " + note.getCountOfLayers(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Position " + note.getCountOfLayers(), Toast.LENGTH_SHORT).show();
                 openDialog(note);
             }
         });

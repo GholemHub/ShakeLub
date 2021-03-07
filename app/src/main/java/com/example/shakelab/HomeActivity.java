@@ -3,45 +3,27 @@ package com.example.shakelab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 //import androidx.appcompat.widget.Toolbar;
 
-import android.widget.Toolbar;
-
-import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Objects;
-
-import javax.annotation.Nullable;
 
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    private FirebaseFirestore fStore;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        fStore = FirebaseFirestore.getInstance();
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,12 +52,11 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_search:
 
-                        startActivity(new Intent(getApplicationContext(), search.class));
+                        startActivity(new Intent(getApplicationContext(), Search.class));
                         break;
                     case R.id.nav_create:
                         startActivity(new Intent(getApplicationContext(), Create.class));
                         break;
-
                 }
                 return false;
             }

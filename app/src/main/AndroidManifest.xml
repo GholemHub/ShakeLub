@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShakeLab">
         <activity android:name=".Create"></activity>
-        <activity android:name=".search" />
+        <activity android:name=".Search" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegiterActivity" />
         <activity
