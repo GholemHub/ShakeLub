@@ -31,9 +31,20 @@ public class Note {
     {
         return shakeImage;
     }
-
-
     public int getCountOfLayers() {
         return countOfLayers;
     }
+
+    public void setShakeName(String shakeName){
+        this.shakeName = shakeName;
+    }
+
+    public void setShakeImage(String shakeImage){
+        this.shakeImage = shakeImage;
+    }
+
+    public void setCountOfLayers(int countOfLayers){
+        this.countOfLayers = countOfLayers;
+    }
+
 }
