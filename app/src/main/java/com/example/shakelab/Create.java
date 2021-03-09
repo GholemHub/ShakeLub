@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -18,12 +19,12 @@ public class Create extends AppCompatActivity {
 
 
     private ActionBarDrawerToggle toggle;
+    private NumberPicker numberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,6 +64,12 @@ public class Create extends AppCompatActivity {
         });
 
         //setUpRecycleView();
+
+        /// NUMBER PICKER
+        numberPicker = findViewById(R.id.countOfIngredients_picker);
+        numberPicker.setMaxValue(25);
+        numberPicker.setMinValue(1);
+        numberPicker.setValue(1);
 
 
     }
