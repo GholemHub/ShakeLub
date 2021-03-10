@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ public class Create extends AppCompatActivity {
 
     private ActionBarDrawerToggle toggle;
     private NumberPicker numberPicker;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +76,27 @@ public class Create extends AppCompatActivity {
         numberPicker.setValue(1);
 
 
-    }
+        button = findViewById(R.id.button);
 
-    private void setUpRecycleView() {
-        RecyclerView recyclerView = findViewById(R.id.create_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NoteIngredientAdapter adapter = new NoteIngredientAdapter(getApplicationContext(), R.layout.note_create_item);
+                ListView listView = findViewById(R.id.create_recycler_view);
+
+                listView.setAdapter(adapter);
+
+                NoteIngredient nti = new NoteIngredient("213");
+
+                adapter.add(nti);
+                adapter.add(nti);
+                adapter.add(nti);
+
+                Toast.makeText(Create.this, "Hello", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

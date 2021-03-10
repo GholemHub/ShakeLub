@@ -48,7 +48,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:hint="Shake Name"
-
+                    android:maxLines="1"
 
                     android:textAlignment="center"
                     android:textSize="30sp" />
@@ -79,10 +79,18 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
             android:id="@+id/create_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="300dp"
+
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
     </LinearLayout>
 
