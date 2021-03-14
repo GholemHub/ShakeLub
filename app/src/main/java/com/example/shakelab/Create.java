@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +25,7 @@ public class Create extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NumberPicker numberPicker;
     private Button button;
+    private TextView text_view_numberOfingredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,21 +79,35 @@ public class Create extends AppCompatActivity {
 
 
         button = findViewById(R.id.button);
+        //text_view_numberOfingredient = findViewById(R.id.text_view_numberOfingredient);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 NoteIngredientAdapter adapter = new NoteIngredientAdapter(getApplicationContext(), R.layout.note_create_item);
                 ListView listView = findViewById(R.id.create_recycler_view);
 
                 listView.setAdapter(adapter);
 
                 NoteIngredient nti = new NoteIngredient("213");
+                //Toast.makeText(Create.this, "Hello", Toast.LENGTH_SHORT).show();
+                for(int i = 0; i < newVal; i++){
+          //          text_view_numberOfingredient.setText(i+1);
+                    adapter.add(nti);
 
+                }
+                /*
                 adapter.add(nti);
                 adapter.add(nti);
-                adapter.add(nti);
+*/
+
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
                 Toast.makeText(Create.this, "Hello", Toast.LENGTH_SHORT).show();
             }
