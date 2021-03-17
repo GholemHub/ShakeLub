@@ -17,21 +17,100 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Create extends AppCompatActivity {
-
+    private ArrayList<NoteIngredient> mNoteIngredientList;
 
     private ActionBarDrawerToggle toggle;
-    private NumberPicker numberPicker;
-    private Button button;
     private TextView text_view_numberOfingredient;
+
+    private RecyclerView mRecyclerView;
+    private NoteIngredientAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private NumberPicker numberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        createNavBar();///NAVIGATION BAR
+        createNumberPicker();/// NUMBER PICKER
+        numberPicker = findViewById(R.id.countOfIngredients_picker);
+        numberPicker.setMaxValue(10);
+        numberPicker.setMinValue(1);
+        numberPicker.setValue(0);
+
+        text_view_numberOfingredient = findViewById(R.id.text_view_numberOfingredient);
+
+
+
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                //createExampleList(newVal);
+                buildRecyclerView(newVal);
+
+            }
+        });
+    }
+
+    private void createNumberPicker() {
+
+
+    }
+
+    public void createExampleList(int newVal){
+        mNoteIngredientList = new ArrayList<>();
+
+        for(int i = 0; i < newVal; i++){
+            mNoteIngredientList.add(new NoteIngredient("1111"));
+        }
+
+    }
+
+    public void buildRecyclerView(int newVal){
+
+        mNoteIngredientList = new ArrayList<>();
+
+        for(int i = 0; i < newVal; i++){
+            mNoteIngredientList.add(new NoteIngredient("1111"));
+        }
+
+        mRecyclerView = findViewById(R.id.create_recycler_view);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new NoteIngredientAdapter(mNoteIngredientList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+       /* mAdapter.setOnItemClickListener(new NoteIngredientAdapter.OnItemClicklListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Toast.makeText(MainActivity.this, "2222222", Toast.LENGTH_SHORT).show();
+                //mNoteIngredientList.get(position).setNameOfIngredient("@@@@@@@");
+
+                mAdapter.notifyItemChanged(position);
+
+            }
+        });*/
+
+    }
+
+    private void createNavBar() {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,51 +147,10 @@ public class Create extends AppCompatActivity {
                 return false;
             }
         });
-
-        //setUpRecycleView();
-
-        /// NUMBER PICKER
-        numberPicker = findViewById(R.id.countOfIngredients_picker);
-        numberPicker.setMaxValue(25);
-        numberPicker.setMinValue(1);
-        numberPicker.setValue(1);
-
-
-        button = findViewById(R.id.button);
-        //text_view_numberOfingredient = findViewById(R.id.text_view_numberOfingredient);
-
-
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                NoteIngredientAdapter adapter = new NoteIngredientAdapter(getApplicationContext(), R.layout.note_create_item);
-                ListView listView = findViewById(R.id.create_recycler_view);
-
-                listView.setAdapter(adapter);
-
-                NoteIngredient nti = new NoteIngredient("213");
-                //Toast.makeText(Create.this, "Hello", Toast.LENGTH_SHORT).show();
-                for(int i = 0; i < newVal; i++){
-          //          text_view_numberOfingredient.setText(i+1);
-                    adapter.add(nti);
-
-                }
-                /*
-                adapter.add(nti);
-                adapter.add(nti);
-*/
-
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(Create.this, "Hello", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
     }
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference notebookRef = db.collection("shakes");
+    private DatabaseReference usersRef;
+
 }

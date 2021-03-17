@@ -163,7 +163,7 @@ public class Search extends AppCompatActivity {
                 String id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
 
-                Toast.makeText(Search.this, "Position " + note.getCountOfLayers(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Shake " + note.getShakeName(), Toast.LENGTH_SHORT).show();
                 openDialog(note);
             }
         });

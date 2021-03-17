@@ -1,54 +1,51 @@
 package com.example.shakelab;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NoteIngredientAdapter extends ArrayAdapter<NoteIngredient> {
-    List list = new ArrayList();
+public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAdapter.NoteIngredientsViewHolder> {
 
-    public NoteIngredientAdapter(Context context, int resourse, List<NoteIngredient> noteIngredientsList){
-        super(context, resourse, noteIngredientsList);
+
+
+    private ArrayList<NoteIngredient> mNoteIngredientsList;
+
+    private OnItemClicklListener mListener;
+
+    public void setOnItemClickListener(OnItemClicklListener listener){
+        mListener = listener;
     }
 
-    public NoteIngredientAdapter(Context applicationContext, int note_create_item) {
-        super(applicationContext,note_create_item);
+    public interface OnItemClicklListener {
+        void onItemClick(int position);
     }
 
-    @Override
-    public void add(@Nullable NoteIngredient object) {
-        super.add(object);
-        list.add(object);
-    }
+    public static class NoteIngredientsViewHolder extends RecyclerView.ViewHolder{
+        public EditText ingredient_name;
 
-    @Override
-    public int getCount() {
-        return this.list.size();
-    }
+        public NoteIngredientsViewHolder(@NonNull View itemView, OnItemClicklListener listener) {
+            super(itemView);
 
-    static class NoteIngredientsHandler{
-        EditText editText;
+            ingredient_name = itemView.findViewById(R.id.ingredient_name);
 
-        public NoteIngredientsHandler(EditText editText) {
-            this.editText = editText;
-        }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
-        public NoteIngredientsHandler() {
-
-        }
-
-        public EditText getEditText() {
-            return editText;
         }
     }
 
@@ -56,24 +53,26 @@ public class NoteIngredientAdapter extends ArrayAdapter<NoteIngredient> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        NoteIngredient noteIngredient = getItem(position);
+    public NoteIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
+        NoteIngredientsViewHolder nivh = new NoteIngredientsViewHolder(v, mListener);
 
-        View line;
-        line = convertView;
-        NoteIngredientsHandler noteIngredientsHandler;
-        if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            line = inflater.inflate(R.layout.note_create_item, parent, false);
-            noteIngredientsHandler = new NoteIngredientsHandler();
-            noteIngredientsHandler.editText = line.findViewById(R.id.ingredient_name);
-            line.setTag(noteIngredientsHandler);
-        }else{
-            noteIngredientsHandler = (NoteIngredientsHandler) line.getTag();
-        }
+        return nivh;
+    }
 
-        NoteIngredient noteIngredient1 = new NoteIngredient("132");
-        noteIngredientsHandler.editText.setText(noteIngredient.getNameOfIngredient());
-        return line;
+    public NoteIngredientAdapter(ArrayList<NoteIngredient> noteList){
+        mNoteIngredientsList = new ArrayList<NoteIngredient>();
+        mNoteIngredientsList = noteList;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NoteIngredientsViewHolder holder, int position) {
+        NoteIngredient currentItem = mNoteIngredientsList.get(position);
+        holder.ingredient_name.setText(currentItem.getNameOfIngredient());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mNoteIngredientsList.size();
     }
 }

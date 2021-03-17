@@ -76,30 +76,7 @@ private OnItemClickListener listener;
             notifyDataSetChanged();
         }
     };
-/*
-    class NoteHolderCreate extends RecyclerView.ViewHolder{
 
-        TextView textViewShakeName;
-
-        public NoteHolderCreate(@NonNull View itemView) {
-            super(itemView);
-
-            textViewShakeName = itemView.findViewById(R.id.ingredient_name);
-
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && listener != null){
-                        listener.onItemClick(getSnapshots().getSnapshot(position),position);
-                    }
-                }
-            });
-        }
-
-    }*/
     class NoteHolder extends RecyclerView.ViewHolder{
 
         TextView textViewShakeName;
@@ -124,7 +101,6 @@ private OnItemClickListener listener;
                 }
             });
         }
-
     }
 
     public interface OnItemClickListener{
