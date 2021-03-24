@@ -9,33 +9,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
-import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Create extends AppCompatActivity {
@@ -76,14 +66,21 @@ public class Create extends AppCompatActivity {
         createBnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.toString());
+
+
+
+                DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
 
 
                 Map<String,Object> newShake = new HashMap<>();
 
+                newShake.put("ShakeName",new_shake_name.getText().toString());
 
+                for(NoteIngredient list: mNoteIngredientList ){
+                    Toast.makeText(Create.this, list.getNameOfIngredient(), Toast.LENGTH_SHORT).show();
+                    newShake.put("ingredient" + list.getCountOfIngredient(),list.getNameOfIngredient());
+                }
 
-                newShake.put("ShakeName","1");
 
                 documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -96,6 +93,7 @@ public class Create extends AppCompatActivity {
                         Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
@@ -136,19 +134,16 @@ public class Create extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new NoteIngredientAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                changeItem(position, "Boom");
-            }
-        });
+
 
     }
+    public String getItemInfo(int position){
 
-    public void changeItem(int position, String text){
-        mNoteIngredientList.get(position).changeTex1(text);
-        mAdapter.notifyItemChanged(position);
+
+
+        return mNoteIngredientList.get(position).getNameOfIngredient();
     }
+
 
     private void createNavBar() {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);

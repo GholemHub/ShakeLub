@@ -19,9 +19,7 @@ public class NoteIngredient {
         countOfIngredient = text;
     }
 
-    public NoteIngredient() {
 
-    }
 
     public String getCountOfIngredient() {
         return countOfIngredient;

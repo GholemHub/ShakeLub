@@ -57,12 +57,10 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
                                     Log.d("@@@: ", "POSITION: " + position);
                                 }
                             });
-
                         }
                     }
                 }
             });
-
         }
     }
 
