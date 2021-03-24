@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,16 +19,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.sql.DataTruncation;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Create extends AppCompatActivity {
     private ArrayList<NoteIngredient> mNoteIngredientList;
@@ -40,6 +49,10 @@ public class Create extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private NumberPicker numberPicker;
 
+    private FloatingActionButton createBnt;
+    private TextView new_shake_name;
+
+    private FirebaseFirestore fStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,67 +60,94 @@ public class Create extends AppCompatActivity {
 
         createNavBar();///NAVIGATION BAR
         createNumberPicker();/// NUMBER PICKER
+        btnCreate();
+
+    }
+
+    private void btnCreate() {
+
+        fStore = FirebaseFirestore.getInstance();
+
+        createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
+        new_shake_name = findViewById(R.id.new_shake_name);
+
+
+
+        createBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.toString());
+
+
+                Map<String,Object> newShake = new HashMap<>();
+
+
+
+                newShake.put("ShakeName","1");
+
+                documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void createNumberPicker() {
+
         numberPicker = findViewById(R.id.countOfIngredients_picker);
         numberPicker.setMaxValue(10);
-        numberPicker.setMinValue(1);
+        numberPicker.setMinValue(0);
         numberPicker.setValue(0);
 
         text_view_numberOfingredient = findViewById(R.id.text_view_numberOfingredient);
 
-
-
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                //createExampleList(newVal);
                 buildRecyclerView(newVal);
 
             }
         });
     }
 
-    private void createNumberPicker() {
-
-
-    }
-
-    public void createExampleList(int newVal){
-        mNoteIngredientList = new ArrayList<>();
-
-        for(int i = 0; i < newVal; i++){
-            mNoteIngredientList.add(new NoteIngredient("1111"));
-        }
-
-    }
 
     public void buildRecyclerView(int newVal){
 
         mNoteIngredientList = new ArrayList<>();
 
         for(int i = 0; i < newVal; i++){
-            mNoteIngredientList.add(new NoteIngredient("1111"));
+            int p = i+1;
+            mNoteIngredientList.add(new NoteIngredient("", "" + p));
         }
 
         mRecyclerView = findViewById(R.id.create_recycler_view);
 
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new NoteIngredientAdapter(mNoteIngredientList);
-
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-
-       /* mAdapter.setOnItemClickListener(new NoteIngredientAdapter.OnItemClicklListener() {
+        mAdapter.setOnItemClickListener(new NoteIngredientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //Toast.makeText(MainActivity.this, "2222222", Toast.LENGTH_SHORT).show();
-                //mNoteIngredientList.get(position).setNameOfIngredient("@@@@@@@");
-
-                mAdapter.notifyItemChanged(position);
-
+                changeItem(position, "Boom");
             }
-        });*/
+        });
 
+    }
+
+    public void changeItem(int position, String text){
+        mNoteIngredientList.get(position).changeTex1(text);
+        mAdapter.notifyItemChanged(position);
     }
 
     private void createNavBar() {
