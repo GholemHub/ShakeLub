@@ -68,6 +68,7 @@ public class Create extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                Toast.makeText(Create.this, "Adapter: "+mAdapter.getIngredientInfo2(), Toast.LENGTH_SHORT).show();
 
                 DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
 
@@ -77,8 +78,8 @@ public class Create extends AppCompatActivity {
                 newShake.put("ShakeName",new_shake_name.getText().toString());
 
                 for(NoteIngredient list: mNoteIngredientList ){
-                    Toast.makeText(Create.this, list.getNameOfIngredient(), Toast.LENGTH_SHORT).show();
-                    newShake.put("ingredient" + list.getCountOfIngredient(),list.getNameOfIngredient());
+                    Toast.makeText(Create.this, mAdapter.getIngredientInfo2(), Toast.LENGTH_SHORT).show();
+                    newShake.put("ingredient" + list.getCountOfIngredient(),mAdapter.getIngredientInfo2());
                 }
 
 
