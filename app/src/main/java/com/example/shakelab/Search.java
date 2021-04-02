@@ -115,7 +115,6 @@ public class Search extends AppCompatActivity {
                 }else{
 
                     query = notebookRef
-
                             .whereEqualTo("shakeName", newText)
                             .orderBy("countOfLayers", Query.Direction.DESCENDING);
 

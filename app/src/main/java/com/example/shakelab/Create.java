@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -94,7 +95,6 @@ public class Create extends AppCompatActivity {
 
         });
     }
-
     private void uploadImage() {
         new_shake_image = findViewById(R.id.new_shake_image);
         new_shake_image.setOnClickListener(new View.OnClickListener() {
@@ -180,40 +180,55 @@ public class Create extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                /* if(mUploadTask != null && mUploadTask.isInProgress()){
+
+                if(new_shake_name.getText().toString().isEmpty()){
+                    new_shake_name.setError("Name is required");
+                    Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if(mUploadTask != null && mUploadTask.isInProgress()){
                     Toast.makeText(Create.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                }{
+                }
 
-                }*/
-
-                //Toast.makeText(Create.this, "Adapter: " + mAdapter.getIngredientInfo2(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(Create.this, "URL: "+ URL, Toast.LENGTH_SHORT).show();
 
                 DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
 
                 Map<String,Object> newShake = new HashMap<>();
 
-                newShake.put("ShakeName",new_shake_name.getText().toString());
-                newShake.put("Image",URL);
 
-                for(NoteIngredient list: mNoteIngredientList ){
-                    //Toast.makeText(Create.this, mAdapter.getIngredientInfo2(), Toast.LENGTH_SHORT).show();
-                    newShake.put("ingredient" + list.getCountOfIngredient(),mAdapter.getIngredientInfo2());
+
+                    newShake.put("ShakeName", new_shake_name.getText().toString());
+                    newShake.put("Image", URL);
+
+                    if(mNoteIngredientList != null && mNoteIngredientList.isEmpty()){
+                        Toast.makeText(Create.this, "Field the ingredients", Toast.LENGTH_SHORT).show();
+                        mAdapter.error();
+                        return;
+                        //numberPicker.setError("Name is required");
+                    }
+                    for (NoteIngredient list : mNoteIngredientList) {
+                        
+                        if( mAdapter.getIngredientInfo2() == ""){
+                            mAdapter.error();
+                        }
+                        newShake.put("ingredient" + list.getCountOfIngredient(), mAdapter.getIngredientInfo2());
+                    }
+
+                    documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-
-                documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
         });
     }
 
@@ -256,8 +271,6 @@ public class Create extends AppCompatActivity {
 
     }
     public String getItemInfo(int position){
-
-
 
         return mNoteIngredientList.get(position).getNameOfIngredient();
     }

@@ -34,6 +34,9 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         return nivh.getiName();
     }
 
+    public void error(){
+        nivh.error();
+    }
 
     public static class NoteIngredientsViewHolder extends RecyclerView.ViewHolder{
         public EditText ingredient_name;
@@ -46,10 +49,15 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
             return iName;
         }
 
+        public void error(){
+            ingredient_name.setError("Required");
+        }
+
         public void setIngredientInfo(String name){
             iName = name;
-         //   return name;
+            //return name;
         }
+
 
         public NoteIngredientsViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
