@@ -31,7 +31,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     }
 
     public String getIngredientInfo2(){
-        return Name;
+        return nivh.getiName();
     }
 
 
@@ -40,10 +40,16 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         public TextView ingredient_num;
         public TextView btn;
 
-        public void setIngredientInfo(String name){
-            Name = name;
+        private String iName;
+
+        public String getiName() {
+            return iName;
         }
 
+        public void setIngredientInfo(String name){
+            iName = name;
+         //   return name;
+        }
 
         public NoteIngredientsViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -52,43 +58,23 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
             ingredient_num = itemView.findViewById(R.id.text_view_numberOfingredient);
             btn = itemView.findViewById(R.id.button);
 
-
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setIngredientInfo(ingredient_name.getText().toString());
-                    btn.setText(ingredient_name.getText().toString());
-                }
-            });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            listener.onItemClick(position);
-                            Log.d("@@@: ", "POSITION: " + position);
-                            btn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    btn.setText("" + position);
-                                    Log.d("@@@: ", "POSITION: " + position);
-                                }
-                            });
-                        }
-                    }
+                    btn.setText("SAVED");
+                    btn.setBackgroundColor(itemView.getResources().getColor(R.color.coral));
                 }
             });
         }
     }
 
-
+    public NoteIngredientsViewHolder nivh;
     @NonNull
     @Override
     public NoteIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
-        NoteIngredientsViewHolder nivh = new NoteIngredientsViewHolder(v, mListener);
+        nivh = new NoteIngredientsViewHolder(v, mListener);
 
         return nivh;
     }
@@ -105,7 +91,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         holder.ingredient_name.setText(currentItem.getNameOfIngredient());
         holder.ingredient_name.getText();
         holder.ingredient_num.setText(currentItem.getCountOfIngredient());
-        holder.btn.setText("" + position);
+        holder.btn.setText("SAVE");
     }
 
     @Override
