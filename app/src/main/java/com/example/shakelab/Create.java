@@ -209,13 +209,17 @@ public class Create extends AppCompatActivity {
                         return;
                         //numberPicker.setError("Name is required");
                     }
-                    for (NoteIngredient list : mNoteIngredientList) {
-                        
-                        if( mAdapter.getIngredientInfo2() == ""){
-                            mAdapter.error();
-                        }
-                        newShake.put("ingredient" + list.getCountOfIngredient(), mAdapter.getIngredientInfo2());
-                    }
+
+                mAdapter.saveNames();
+
+                int i = 0;
+                for (NoteIngredient list : mNoteIngredientList) {
+                        newShake.put("ingredient" + list.getCountOfIngredient(),
+                                mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient()))
+                        );
+                        i++;
+                }
+
 
                     documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

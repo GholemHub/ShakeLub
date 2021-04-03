@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.jar.Attributes;
 
 public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAdapter.NoteIngredientsViewHolder> {
@@ -30,8 +31,23 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         void onItemClick(int position);
     }
 
-    public String getIngredientInfo2(){
-        return nivh.getiName();
+    public String getIngredientInfo3(int num){
+        String names = "";
+        int i = 0;
+        for (NoteIngredientsViewHolder l: nivhList) {
+            i++;
+            if(num == i){
+                names = l.getiName();
+                break;
+            }
+        }
+        return names;
+    }
+
+    public void saveNames(){
+        for (NoteIngredientsViewHolder l: nivhList) {
+            l.setIngredientInfo(l.ingredient_name.getText().toString());
+        }
     }
 
     public void error(){
@@ -64,32 +80,30 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
             ingredient_name = itemView.findViewById(R.id.ingredient_name);
             ingredient_num = itemView.findViewById(R.id.text_view_numberOfingredient);
-            btn = itemView.findViewById(R.id.button);
 
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setIngredientInfo(ingredient_name.getText().toString());
-                    btn.setText("SAVED");
-                    btn.setBackgroundColor(itemView.getResources().getColor(R.color.coral));
-                }
-            });
+
         }
     }
 
     public NoteIngredientsViewHolder nivh;
+    public List<NoteIngredientsViewHolder> nivhList = new ArrayList<NoteIngredientsViewHolder>();
+
     @NonNull
     @Override
     public NoteIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
         nivh = new NoteIngredientsViewHolder(v, mListener);
+        nivhList.add(new NoteIngredientsViewHolder(v, mListener));
 
         return nivh;
     }
 
     public NoteIngredientAdapter(ArrayList<NoteIngredient> noteList){
         mNoteIngredientsList = new ArrayList<NoteIngredient>();
+
+
         mNoteIngredientsList = noteList;
+
     }
 
     @Override
@@ -99,7 +113,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         holder.ingredient_name.setText(currentItem.getNameOfIngredient());
         holder.ingredient_name.getText();
         holder.ingredient_num.setText(currentItem.getCountOfIngredient());
-        holder.btn.setText("SAVE");
     }
 
     @Override
