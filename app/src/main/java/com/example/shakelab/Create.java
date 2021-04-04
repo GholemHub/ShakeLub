@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,8 +67,6 @@ public class Create extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
 
-    private Button save_image_button;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,32 +75,19 @@ public class Create extends AppCompatActivity {
         createNavBar();///NAVIGATION BAR
         createNumberPicker();/// NUMBER PICKER
 
-
-        btnSaveImage();
         uploadImage();
         btnCreate();
     }
 
-    private void btnSaveImage() {
-        save_image_button = findViewById(R.id.save_image_button);
 
-        save_image_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadFile();
-
-                save_image_button.setText("SAVED");
-                save_image_button.setBackgroundColor(getResources().getColor(R.color.coral));
-            }
-
-        });
-    }
     private void uploadImage() {
         new_shake_image = findViewById(R.id.new_shake_image);
         new_shake_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFileChooser();
+
+
             }
         });
     }
@@ -112,8 +99,8 @@ public class Create extends AppCompatActivity {
     }
     private String URL;
 
-    private String uploadFile(){
-
+    private void uploadFile(){
+        //mImageUri =
         mStorageRef = FirebaseStorage.getInstance().getReference("shakeImage");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("shakeImage");
 
@@ -126,7 +113,8 @@ public class Create extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            String URL2 = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            //String URL2 = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            String URL2 = taskSnapshot.getStorage().getDownloadUrl().toString();
                             URL = URL2;
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -138,15 +126,13 @@ public class Create extends AppCompatActivity {
                 @Override
                 public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-
                 }
             });
-            return URL;
+
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-            return URL;
-        }
 
+        }
     }
 
     private void openFileChooser() {
@@ -167,10 +153,17 @@ public class Create extends AppCompatActivity {
             mImageUri = data.getData();
 
             Picasso.get().load(mImageUri).into(new_shake_image);
+
+
+            uploadFile();
         }
+
+
     }
 
     private void btnCreate() {
+
+        //Toast.makeText(this, uploadFile(), Toast.LENGTH_SHORT).show();
 
         fStore = FirebaseFirestore.getInstance();
         createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
@@ -186,19 +179,16 @@ public class Create extends AppCompatActivity {
                     Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
+/*
                 if(mUploadTask != null && mUploadTask.isInProgress()){
                     Toast.makeText(Create.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 }
-
+*/
                 Toast.makeText(Create.this, "URL: "+ URL, Toast.LENGTH_SHORT).show();
 
                 DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
 
                 Map<String,Object> newShake = new HashMap<>();
-
-
 
                     newShake.put("ShakeName", new_shake_name.getText().toString());
                     newShake.put("Image", URL);
@@ -219,8 +209,6 @@ public class Create extends AppCompatActivity {
                         );
                         i++;
                 }
-
-
                     documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -274,10 +262,6 @@ public class Create extends AppCompatActivity {
 
 
     }
-    public String getItemInfo(int position){
-
-        return mNoteIngredientList.get(position).getNameOfIngredient();
-    }
 
 
     private void createNavBar() {
@@ -318,9 +302,4 @@ public class Create extends AppCompatActivity {
             }
         });
     }
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference notebookRef = db.collection("shakes");
-    private DatabaseReference usersRef;
-
 }
