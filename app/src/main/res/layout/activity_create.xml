@@ -32,19 +32,24 @@
             android:orientation="horizontal"
             >
 
-         <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-            android:orientation="vertical"
-             >
-             <ImageView
-                 android:id="@+id/new_shake_image"
-                 android:layout_width="100dp"
-                 android:layout_height="100dp"
-                 app:srcCompat="@mipmap/ic_launcher" />
+            <LinearLayout
+                android:layout_width="132dp"
+                android:layout_height="131dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/new_shake_image"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    app:civ_border_color="@color/coral"
+                    app:civ_border_width="2dp"
+                    android:src="@drawable/ic_launcher_shake_lab_coral"
+                    tools:ignore="VectorDrawableCompat"
+                    />
 
 
-         </LinearLayout>
+            </LinearLayout>
 
 
             <LinearLayout
