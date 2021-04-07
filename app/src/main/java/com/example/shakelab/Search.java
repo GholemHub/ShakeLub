@@ -59,7 +59,6 @@ public class Search extends AppCompatActivity {
                         Toast.makeText(Search.this, "Search", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_profile:
-
                         break;
                     case R.id.nav_search:
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -92,8 +91,6 @@ public class Search extends AppCompatActivity {
             }
         });
 
-
-
         search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -121,9 +118,7 @@ public class Search extends AppCompatActivity {
                     FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                             .setQuery(query, Note.class)
                             .build();
-
                     adapter.updateOptions(options);
-
                 }
 
                 return false;
@@ -150,7 +145,7 @@ public class Search extends AppCompatActivity {
         adapter = new NoteAdapter(options, ls);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -162,7 +157,7 @@ public class Search extends AppCompatActivity {
                 String id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
 
-                Toast.makeText(Search.this, "Shake " + note.getShakeName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Shake " + note.getShakeIngredientsString(), Toast.LENGTH_SHORT).show();
                 openDialog(note);
             }
         });
@@ -172,6 +167,7 @@ public class Search extends AppCompatActivity {
 
         InfoShakeDialog infoShakeDialog = new InfoShakeDialog(note);
         infoShakeDialog.show(getSupportFragmentManager(), "exemple dialog");
+
     }
 
     @Override

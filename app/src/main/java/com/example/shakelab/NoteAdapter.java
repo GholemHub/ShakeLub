@@ -16,7 +16,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +80,9 @@ private OnItemClickListener listener;
 
         TextView textViewShakeName;
         TextView textViewLayers;
+        TextView text_view_shake_ingredients;
         ImageView imageViewShake;
+
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,7 +90,7 @@ private OnItemClickListener listener;
             textViewShakeName = itemView.findViewById(R.id.text_view_shake_name);
             textViewLayers =  itemView.findViewById(R.id.text_view_layers);
             imageViewShake = itemView.findViewById(R.id.image_view_shake);
-
+            text_view_shake_ingredients = itemView.findViewById(R.id.text_view_shake_ingredients);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,10 +116,10 @@ private OnItemClickListener listener;
     protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
         holder.textViewShakeName.setText(model.getShakeName());
         holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
+        holder.text_view_shake_ingredients.setText(String.valueOf(model.getShakeIngredientsString()));
 
-        if(model.getshakeImage() != ""){
-            Picasso.get().load(model.getshakeImage()).into(holder.imageViewShake);
-
+        if(model.getShakeImage() != null && model.getShakeImage() != ""){
+            Picasso.get().load(model.getShakeImage()).into(holder.imageViewShake);
         }
         else{
 

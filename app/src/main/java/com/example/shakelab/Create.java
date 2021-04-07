@@ -64,7 +64,7 @@ public class Create extends AppCompatActivity {
     private ImageView new_shake_image;
 
     private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef;
+    //private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
 
     @Override
@@ -102,7 +102,7 @@ public class Create extends AppCompatActivity {
     private void uploadFile(){
         //mImageUri =
         mStorageRef = FirebaseStorage.getInstance().getReference("shakeImage");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("shakeImage");
+        //mDatabaseRef = FirebaseDatabase.getInstance().getReference("shakeImage");
 
         if(new_shake_image != null){
             StorageReference fileRefrence = mStorageRef.child(System.currentTimeMillis()
@@ -134,15 +134,12 @@ public class Create extends AppCompatActivity {
 
         }
     }
-
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -157,14 +154,10 @@ public class Create extends AppCompatActivity {
 
             uploadFile();
         }
-
-
     }
 
     private void btnCreate() {
-
         //Toast.makeText(this, uploadFile(), Toast.LENGTH_SHORT).show();
-
         fStore = FirebaseFirestore.getInstance();
         createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
         new_shake_name = findViewById(R.id.new_shake_name);
@@ -173,54 +166,64 @@ public class Create extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 if(new_shake_name.getText().toString().isEmpty()){
                     new_shake_name.setError("Name is required");
                     Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-/*
-                if(mUploadTask != null && mUploadTask.isInProgress()){
-                    Toast.makeText(Create.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                }
-*/
+
                 Toast.makeText(Create.this, "URL: "+ URL, Toast.LENGTH_SHORT).show();
 
                 DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
 
                 Map<String,Object> newShake = new HashMap<>();
 
-                    newShake.put("ShakeName", new_shake_name.getText().toString());
-                    newShake.put("Image", URL);
+                    newShake.put("shakeName", new_shake_name.getText().toString());
+                    newShake.put("shakeImage", URL);
+                    newShake.put("countOfLayers", numberPicker.getValue());
 
                     if(mNoteIngredientList != null && mNoteIngredientList.isEmpty()){
                         Toast.makeText(Create.this, "Field the ingredients", Toast.LENGTH_SHORT).show();
                         mAdapter.error();
                         return;
-                        //numberPicker.setError("Name is required");
                     }
 
                 mAdapter.saveNames();
 
+                String ingredientsStr = "";
                 int i = 0;
                 for (NoteIngredient list : mNoteIngredientList) {
-                        newShake.put("ingredient" + list.getCountOfIngredient(),
-                                mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient()))
-                        );
+
+                    /// PUTTIN A NEW INGREDIENT WITH CURRENT NUMBER
+                    newShake.put("ingredient" + list.getCountOfIngredient(),
+                                mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())));
+
+                    /// CREATING A VARIABLE WITH ALL INGREDIENTS
+                        ingredientsStr += mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + " ";
+
                         i++;
                 }
-                    documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+
+                if(ingredientsStr != null && !ingredientsStr.isEmpty()){
+                    newShake.put("shakeIngredientsString", ingredientsStr);
+                }else{
+                    newShake.put("shakeIngredientsString", "");
                 }
+
+
+
+                documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
     }
 
@@ -258,9 +261,6 @@ public class Create extends AppCompatActivity {
         mAdapter = new NoteIngredientAdapter(mNoteIngredientList);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-
-
     }
 
 
