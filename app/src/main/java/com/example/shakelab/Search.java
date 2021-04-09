@@ -59,6 +59,7 @@ public class Search extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         break;
                     case R.id.nav_profile:
+                        startActivity(new Intent(getApplicationContext(), Profile.class));
                         break;
                     case R.id.nav_search:
                         startActivity(new Intent(getApplicationContext(), Search.class));

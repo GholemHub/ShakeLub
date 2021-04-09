@@ -1,8 +1,12 @@
 package com.example.shakelab;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,10 +24,54 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
 
+    private ImageView btn1_Search;
+    private ImageView btn2_Create;
+    private ImageView btn3_Proffile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+        navBar();
+        ButtonsControlls();
+    }
+
+
+    private void ButtonsControlls() {
+        btn1_Search = findViewById(R.id.btnHome1);
+        btn2_Create = findViewById(R.id.btnHome2);
+        btn3_Proffile = findViewById(R.id.btnHome3);
+
+
+        btn1_Search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Search.class));
+            }
+        });
+
+        btn2_Create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Create.class));
+
+            }
+        });
+
+
+        btn3_Proffile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
+
+            }
+        });
+    }
+
+    private void navBar() {
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_profile:
-
+                        startActivity(new Intent(getApplicationContext(), Profile.class));
                         break;
                     case R.id.nav_search:
                         startActivity(new Intent(getApplicationContext(), Search.class));

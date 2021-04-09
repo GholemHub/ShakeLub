@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText resetMail = new EditText(v.getContext());
                 AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
                 passwordResetDialog.setTitle("Reset Password?");
-                passwordResetDialog.setMessage("Enter Ypur Email To Receved Reset Link.");
+                passwordResetDialog.setMessage("Enter link to change passwort?");
                 passwordResetDialog.setView(resetMail);
 
                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
