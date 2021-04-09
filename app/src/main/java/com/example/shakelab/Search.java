@@ -56,12 +56,13 @@ public class Search extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        Toast.makeText(Search.this, "Search", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         break;
                     case R.id.nav_profile:
                         break;
                     case R.id.nav_search:
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        startActivity(new Intent(getApplicationContext(), Search.class));
+                        Toast.makeText(Search.this, "Search", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_create:
                         startActivity(new Intent(getApplicationContext(), Create.class));

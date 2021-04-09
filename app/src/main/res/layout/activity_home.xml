@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.shakelab.HomeActivity"
+    android:background="@drawable/back1"
     >
 
     <LinearLayout
@@ -23,17 +24,109 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+
+        <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+            <ImageView
+                android:id="@+id/imageViewHomeTest12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="438dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/bar3"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageView
                 android:id="@+id/imageViewHomeTest1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/imageViewHomeTest12"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/logo_shake_lab_while"
+                tools:ignore="VectorDrawableCompat"
+
+                />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:layout_below="@+id/imageViewHomeTest1"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
+
+
+                android:background="@color/grey1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/bar3" />
-        </FrameLayout>
+                android:layout_below="@+id/view1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:id="@+id/l1">
+
+                <ImageView
+                    android:id="@+id/btnHome1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/view1"
+                    android:layout_alignParentStart="true"
+                    app:tint="@color/dark1"
+                    app:srcCompat="@drawable/ic_search"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/btnHome2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignTop="@+id/btnHome1"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_toEndOf="@+id/btnHome1"
+                    app:srcCompat="@drawable/ic_science"
+                    app:tint="@color/dark1"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/btnHome3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignTop="@+id/btnHome1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/btnHome2"
+                    app:srcCompat="@drawable/ic_person"
+                    app:tint="@color/dark1"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:layout_below="@+id/l1"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
+
+
+                android:layout_weight="1"
+                android:background="@color/grey1" />
+
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 
@@ -43,6 +136,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu" >
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

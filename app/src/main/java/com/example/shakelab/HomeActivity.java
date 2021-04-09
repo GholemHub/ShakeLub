@@ -45,13 +45,13 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_home:
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_profile:
 
                         break;
                     case R.id.nav_search:
-
                         startActivity(new Intent(getApplicationContext(), Search.class));
                         break;
                     case R.id.nav_create:

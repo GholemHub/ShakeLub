@@ -294,6 +294,7 @@ public class Create extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), Search.class));
                         break;
                     case R.id.nav_create:
+                        startActivity(new Intent(getApplicationContext(), Create.class));
                         Toast.makeText(Create.this, "Create", Toast.LENGTH_SHORT).show();
                         break;
                 }
