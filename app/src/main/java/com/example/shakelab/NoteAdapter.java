@@ -29,8 +29,7 @@ private OnItemClickListener listener;
     }
     public NoteAdapter(@NonNull FirestoreRecyclerOptions<Note> options) {
         super(options);
-        //this.noteList = noteList;
-        //noteListFull = new ArrayList<>(noteList);
+
     }
 
     @Override
@@ -117,6 +116,7 @@ private OnItemClickListener listener;
         holder.textViewShakeName.setText(model.getShakeName());
         holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
         holder.text_view_shake_ingredients.setText(String.valueOf(model.getShakeIngredientsString()));
+
 
         if(model.getShakeImage() != null && model.getShakeImage() != ""){
             Picasso.get().load(model.getShakeImage()).into(holder.imageViewShake);

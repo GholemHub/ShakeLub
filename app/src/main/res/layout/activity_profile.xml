@@ -82,8 +82,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/Exit_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@+id/Exit_btn"
+                    app:layout_anchorGravity="center" />
 
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

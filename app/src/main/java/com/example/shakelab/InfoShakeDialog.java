@@ -17,8 +17,9 @@ import com.squareup.picasso.Picasso;
 
 public class InfoShakeDialog extends AppCompatDialogFragment {
     private TextView nameShake;
-    private TextView recipe;
     private ImageView shakeView;
+    private TextView layers;
+    private TextView ingredients;
 
     private String name;
     private String Image;
@@ -37,24 +38,25 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog_info_shake, null);
 
-
         shakeView = view.findViewById(R.id.shake_view);
         nameShake = view.findViewById(R.id.text_view_shake_name);
         image_view_shake = view.findViewById(R.id.image_view_shake);
-        recipe = view.findViewById(R.id.text_view_shake_recipe);
 
+        layers = view.findViewById(R.id.text_view_ingredients_count);
+        ingredients = view.findViewById(R.id.IngredientsInfo);
 
-
+        setLayers();
+        setIngredients();
         name = note.getShakeName();
         Image = note.getShakeImage();
 
         nameShake.setText(Image);
-        recipe.setText(name);
+
+        //recipe.setText(name);
 
 
         if(note.getShakeImage() != null && note.getShakeImage() != ""){
             Picasso.get().load(Image).into(shakeView);
-
         }
         else{
 
@@ -74,8 +76,16 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
             }
         });
 
-       // btn = view.findViewById(R.id.button1);
-
         return builder.create();
+    }
+
+    private void setIngredients() {
+
+        ingredients.setText(note.getShakeIngredientsString2());
+
+    }
+
+    private void setLayers() {
+        layers.setText( layers.getText() +" " + note.getCountOfLayers());
     }
 }

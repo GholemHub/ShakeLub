@@ -6,34 +6,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/shake_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/logo_shake_lab"
-        tools:ignore="VectorDrawableCompat" />
 
-    <TextView
-        android:id="@+id/text_view_shake_name"
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/text_view_shake_recipe"
-        android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="132dp"
+            android:layout_height="131dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/shake_view"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/ic_launcher_shake_lab_coral"
+                app:civ_border_color="@color/coral"
+                app:civ_border_width="2dp"
+                tools:ignore="VectorDrawableCompat" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/text_view_shake_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_view_ingredients_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/new_shake_countOfIngredients"
+                    android:text="Shake Layers:"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Ingredients:"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <TextView
+        android:id="@+id/IngredientsInfo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
-        android:layout_marginTop="108dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:text="Ingredients:"
+        android:textSize="24sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         />
+
+</LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

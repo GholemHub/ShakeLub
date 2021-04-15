@@ -191,6 +191,7 @@ public class Create extends AppCompatActivity {
                 mAdapter.saveNames();
 
                 String ingredientsStr = "";
+                String ingredientsStr2 = "";
                 int i = 0;
                 for (NoteIngredient list : mNoteIngredientList) {
 
@@ -200,6 +201,7 @@ public class Create extends AppCompatActivity {
 
                     /// CREATING A VARIABLE WITH ALL INGREDIENTS
                         ingredientsStr += mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + " ";
+                        ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + "\n";
 
                         i++;
                 }
@@ -208,6 +210,11 @@ public class Create extends AppCompatActivity {
                     newShake.put("shakeIngredientsString", ingredientsStr);
                 }else{
                     newShake.put("shakeIngredientsString", "");
+                }
+                if(ingredientsStr2 != null && !ingredientsStr2.isEmpty()){
+                    newShake.put("shakeIngredientsString2", ingredientsStr2);
+                }else{
+                    newShake.put("shakeIngredientsString2", "");
                 }
 
 

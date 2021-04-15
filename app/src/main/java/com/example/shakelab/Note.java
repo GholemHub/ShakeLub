@@ -7,6 +7,7 @@ public class Note {
     private int countOfLayers;
     private String shakeImage;
     private String shakeIngredientsString;
+    private String shakeIngredientsString2;
 
     public Note(){}
 
@@ -21,6 +22,7 @@ public class Note {
         this.shakeImage = shakeImage;
         this.countOfLayers = layers;
         this.shakeIngredientsString = shakeIngredientsString;
+        this.shakeIngredientsString2 = shakeIngredientsString;
     }
 
     public String getShakeImage() {
@@ -31,6 +33,14 @@ public class Note {
         return shakeIngredientsString;
     }
 
+    public void setShakeIngredientsString2(String shakeIngredientsString2) {
+        this.shakeIngredientsString2 = shakeIngredientsString2;
+    }
+
+    public String getShakeIngredientsString2() {
+        return shakeIngredientsString2;
+    }
+
     public void setShakeIngredientsString(String shakeIngredientsString) {
         this.shakeIngredientsString = shakeIngredientsString;
     }
@@ -39,6 +49,7 @@ public class Note {
     {
         return shakeName;
     }
+
 
     public int getCountOfLayers() {
         return countOfLayers;
