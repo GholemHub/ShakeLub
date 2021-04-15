@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,7 @@ public class Profile extends AppCompatActivity {
     private TextView mail;
     private Button password;
     static FirebaseAuth fAuth;
+    private Button Exit;
 
 
     @Override
@@ -37,12 +40,44 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-
         inicialization();
+        //btnChangeMail();
         btnChangePass();
         createNavBar();
 
+        btnExit();
+
+    }
+
+    private void btnExit() {
+
+        Exit = findViewById(R.id.Log_out);
+
+        Exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Profile.this, "Logged out", Toast.LENGTH_SHORT).show();
+                fAuth.signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+    }
+
+    private void btnChangeMail() {
+
+        mail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+
+        });
+    }
+
+
+    private void openDialog() {
+         ChangeMailDialog changeMailDialog = new ChangeMailDialog();
+        changeMailDialog.show(getSupportFragmentManager(), "Change mail dialog");
     }
 
     private void btnChangePass() {

@@ -58,8 +58,6 @@ public class RegiterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_window);
 
-
-
         BackToSignIn = findViewById(R.id.RegSignIn);
 
         textPassword = findViewById(R.id.EditTextPassword);
@@ -68,7 +66,6 @@ public class RegiterActivity extends AppCompatActivity {
 
         Policy = findViewById(R.id.checkBoxPolicy);
         SignUp = findViewById(R.id.BtnSignUp);
-
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -110,7 +107,7 @@ public class RegiterActivity extends AppCompatActivity {
                             Toast.makeText(RegiterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.INVISIBLE);
                             userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            DocumentReference documentReference = fStore.collection("users").document(Email);
                             Map<String,Object> user = new HashMap<>();
                             user.put("nickname",Nickname);
                             user.put("email",Email);

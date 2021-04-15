@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
             >
@@ -35,10 +35,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:layout_marginEnd="36dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="36dp"
                 android:text="Mail"
-                android:textSize="36sp" />
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
 
 
             <Button
@@ -50,6 +52,16 @@
                 android:layout_marginEnd="60dp"
                 android:background="@color/coral"
                 android:text="Change passord"
+                app:backgroundTint="#F85F6A" />
+            <Button
+                android:id="@+id/Log_out"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="60dp"
+                android:background="@color/coral"
+                android:text="Log out"
                 app:backgroundTint="#F85F6A" />
 
             <TextView
@@ -68,14 +80,19 @@
                 >
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_profile"
+                    android:id="@+id/Exit_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
+
+
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         </LinearLayout>
+
+
     </LinearLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

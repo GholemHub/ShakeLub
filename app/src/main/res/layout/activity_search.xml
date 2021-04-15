@@ -49,6 +49,7 @@
                 android:backgroundTint="@color/coral"
                 android:src="@drawable/logo_shake_lab"
                 app:tint="@color/white"/>
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </LinearLayout>
