@@ -25,7 +25,6 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
     private String Image;
     private Note note;
 
-    private ImageView image_view_shake;
 
     InfoShakeDialog(Note note){
         this.note = note;
@@ -40,20 +39,15 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
 
         shakeView = view.findViewById(R.id.shake_view);
         nameShake = view.findViewById(R.id.text_view_shake_name);
-        image_view_shake = view.findViewById(R.id.image_view_shake);
 
         layers = view.findViewById(R.id.text_view_ingredients_count);
         ingredients = view.findViewById(R.id.IngredientsInfo);
 
         setLayers();
         setIngredients();
-        name = note.getShakeName();
+        nameShake.setText(note.getShakeName());
+
         Image = note.getShakeImage();
-
-        nameShake.setText(Image);
-
-        //recipe.setText(name);
-
 
         if(note.getShakeImage() != null && note.getShakeImage() != ""){
             Picasso.get().load(Image).into(shakeView);
@@ -64,7 +58,7 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         }
 
 
-        builder.setView(view).setTitle(note.getShakeName()).setNegativeButton("cansel", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle("").setNegativeButton("cansel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

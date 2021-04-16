@@ -122,7 +122,6 @@ public class Search extends AppCompatActivity {
                             .build();
                     adapter.updateOptions(options);
                 }
-
                 return false;
             }
         });
@@ -157,19 +156,17 @@ public class Search extends AppCompatActivity {
 
                 Note note = documentSnapshot.toObject(Note.class);
                 String id = documentSnapshot.getId();
-                String path = documentSnapshot.getReference().getPath();
+                //String path = documentSnapshot.getReference().getPath();
 
-                Toast.makeText(Search.this, "Shake " + note.getShakeIngredientsString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Shake " + id, Toast.LENGTH_SHORT).show();
                 openDialog(note);
             }
         });
     }
 
     private void openDialog(Note note) {
-
         InfoShakeDialog infoShakeDialog = new InfoShakeDialog(note);
-        infoShakeDialog.show(getSupportFragmentManager(), "exemple dialog");
-
+        infoShakeDialog.show(getSupportFragmentManager(), "infoShakeDialog");
     }
 
     @Override
@@ -182,7 +179,6 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-
         adapter.stopListening();
     }
 

@@ -230,6 +230,7 @@ public class Create extends AppCompatActivity {
                         Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
                     }
                 });
+                startActivity(new Intent(getApplicationContext(), Search.class));
             }
         });
     }
