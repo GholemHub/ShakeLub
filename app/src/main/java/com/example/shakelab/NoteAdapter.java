@@ -78,7 +78,7 @@ private OnItemClickListener listener;
     class NoteHolder extends RecyclerView.ViewHolder{
 
         TextView textViewShakeName;
-        TextView textViewLayers;
+        //TextView textViewLayers;
         TextView text_view_shake_ingredients;
         ImageView imageViewShake;
 
@@ -87,7 +87,7 @@ private OnItemClickListener listener;
             super(itemView);
 
             textViewShakeName = itemView.findViewById(R.id.text_view_shake_name);
-            textViewLayers =  itemView.findViewById(R.id.text_view_layers);
+            //textViewLayers =  itemView.findViewById(R.id.text_view_layers);
             imageViewShake = itemView.findViewById(R.id.image_view_shake);
             text_view_shake_ingredients = itemView.findViewById(R.id.text_view_shake_ingredients);
 
@@ -114,7 +114,7 @@ private OnItemClickListener listener;
     @Override
     protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
         holder.textViewShakeName.setText(model.getShakeName());
-        holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
+        //holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
         holder.text_view_shake_ingredients.setText(String.valueOf(model.getShakeIngredientsString()));
 
 

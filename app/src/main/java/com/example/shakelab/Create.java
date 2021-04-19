@@ -67,6 +67,7 @@ public class Create extends AppCompatActivity {
     //private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +101,8 @@ public class Create extends AppCompatActivity {
     private String URL;
 
     private void uploadFile(){
-        //mImageUri =
+
         mStorageRef = FirebaseStorage.getInstance().getReference("shakeImage");
-        //mDatabaseRef = FirebaseDatabase.getInstance().getReference("shakeImage");
 
         if(new_shake_image != null){
             StorageReference fileRefrence = mStorageRef.child(System.currentTimeMillis()
@@ -112,10 +112,48 @@ public class Create extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                           /* fileRefrence.child("shakeImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Toast.makeText(Create.this, "LINK: " + uri.toString(), Toast.LENGTH_SHORT).show();
+                                    // Got the download URL for 'users/me/profile.png'
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    Toast.makeText(Create.this, "LINK: ", Toast.LENGTH_SHORT).show();
+                                    // Handle any errors
+                                }
+                            });*/
 
+                            fileRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    URL = uri.toString();
+                                    Toast.makeText(Create.this, "URL: " + uri.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Create.this, "URL: NO", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            Task<Uri> dw = taskSnapshot.getStorage().getDownloadUrl();
                             //String URL2 = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                            String URL2 = taskSnapshot.getStorage().getDownloadUrl().toString();
-                            URL = URL2;
+
+                            if(dw.isSuccessful()){
+
+                            }
+                            String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            //String URL2 = dw.getResult().toString();
+
+
+
+                            URL = downloadUri;
+
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -150,14 +188,13 @@ public class Create extends AppCompatActivity {
             mImageUri = data.getData();
 
             Picasso.get().load(mImageUri).into(new_shake_image);
-
-
             uploadFile();
         }
     }
 
     private void btnCreate() {
         //Toast.makeText(this, uploadFile(), Toast.LENGTH_SHORT).show();
+
         fStore = FirebaseFirestore.getInstance();
         createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
         new_shake_name = findViewById(R.id.new_shake_name);
@@ -172,9 +209,10 @@ public class Create extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(Create.this, "URL: "+ URL, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Create.this, "URL::: "+ URL, Toast.LENGTH_SHORT).show();
 
-                DocumentReference documentReference = fStore.collection("shakes").document(new_shake_name.getText().toString());
+                DocumentReference documentReference = fStore.collection("shakes")
+                        .document(new_shake_name.getText().toString());
 
                 Map<String,Object> newShake = new HashMap<>();
 

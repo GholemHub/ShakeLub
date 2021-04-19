@@ -46,7 +46,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
                 app:backgroundTint="@color/coral"
-                android:backgroundTint="@color/coral"
+                android:backgroundTint="@color/orange"
                 android:src="@drawable/logo_shake_lab"
                 app:tint="@color/white"/>
 
