@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            android:background="@color/coral"
+            android:background="@color/MainColour"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -45,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
-                app:backgroundTint="@color/coral"
-                android:backgroundTint="@color/orange"
+                app:backgroundTint="@color/MainColour"
+                android:backgroundTint="@color/MainColour"
                 android:src="@drawable/logo_shake_lab"
                 app:tint="@color/white"/>
 

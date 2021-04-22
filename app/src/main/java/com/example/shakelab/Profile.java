@@ -5,17 +5,25 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +42,11 @@ public class Profile extends AppCompatActivity {
     static FirebaseAuth fAuth;
     private Button Exit;
 
+    private ImageView mail_feedBack;
+    private ImageView phone_feedBack;
+    private Button themeBnt;
+    private TextView TheamColor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +57,78 @@ public class Profile extends AppCompatActivity {
         //btnChangeMail();
         btnChangePass();
         createNavBar();
-
+        createFeedbackBnts();
+        setTheme();
         btnExit();
 
+    }
+
+    public static int getColorWrapper(Context context, int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//if actual version is >= 6.0
+            return context.getColor(id);
+        } else {
+            //noinspection deprecation
+            return context.getResources().getColor(id);
+        }
+    }
+
+    private void setTheme() {
+        themeBnt = findViewById(R.id.themeBnt);
+        TheamColor = findViewById(R.id.TheamColor);
+
+        //themeBnt.setBackgroundColor();
+        //themeBnt.setBackgroundColor(getColorWrapper(Profile.this,R.color.MainColour));
+
+    }
+    private void createFeedbackBnts() {
+        phone_feedBack = findViewById(R.id.phone_feedBack);
+        mail_feedBack = findViewById(R.id.mail_feedBack);
+
+        mail_feedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "shakelab@ask.com" });
+                    startActivity(emailIntent);
+            }
+        });
+
+        phone_feedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeCall();
+            }
+        });
+
+
+    }
+
+    private static final int REQUEST_CALL = 1;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CALL) {
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                makeCall();
+            }else{
+                Toast.makeText(this,"Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void makeCall() {
+
+        if(ContextCompat.checkSelfPermission(Profile.this,
+                Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Profile.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+            //Toast.makeText(phone.this, "Please login", Toast.LENGTH_SHORT).show();
+        }else{
+            String contact_number="0980707638";
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + contact_number));
+            startActivity(callIntent);
+        }
     }
 
     private void btnExit() {

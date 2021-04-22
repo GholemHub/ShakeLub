@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <EditText
@@ -22,6 +23,7 @@
     android:gravity="center|top"
 
     >
+
     <Button
         android:id="@+id/Apply_Changes"
         android:layout_width="200dp"
@@ -29,7 +31,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
-        android:text="Save" />
+        android:background="@color/MainColour"
+        android:text="Save"
+        app:backgroundTint="@color/MainColour" />
 
 </LinearLayout>
 

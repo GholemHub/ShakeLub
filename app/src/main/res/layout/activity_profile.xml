@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/coral"
+            android:background="@color/MainColour"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -50,9 +50,9 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="60dp"
-                android:background="@color/coral"
+                android:background="@color/MainColour"
                 android:text="Change passord"
-                app:backgroundTint="#F85F6A" />
+                app:backgroundTint="@color/MainColour" />
             <Button
                 android:id="@+id/Log_out"
                 android:layout_width="match_parent"
@@ -60,31 +60,70 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="60dp"
-                android:background="@color/coral"
+                android:background="@color/MainColour"
                 android:text="Log out"
-                app:backgroundTint="#F85F6A" />
+                app:backgroundTint="@color/MainColour" />
+
+            <TextView
+                android:id="@+id/TheamColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Theme color: "
+                android:layout_margin="30dp"
+                android:textSize="24dp"
+                />
+
+
+            <Button
+                android:id="@+id/themeBnt"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="#FFFFFF"
+                app:backgroundTint="#FFFFFF" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="36dp"
-                android:layout_marginTop="16dp"
-                android:text="History:"
+                android:layout_marginTop="20dp"
+                android:text="Feed back:"
                 android:textSize="36sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+
+                >
+
+
+                <ImageView
+                    android:id="@+id/phone_feedBack"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/ic_baseline_phone_24"
+                    tools:ignore="VectorDrawableCompat"
+                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center"
+                    />
+                <ImageView
+                    android:id="@+id/mail_feedBack"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/ic_baseline_email_24"
+                    tools:ignore="VectorDrawableCompat"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    />
+
+            </LinearLayout>
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 >
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/Exit_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_anchor="@+id/Exit_btn"
-                    app:layout_anchorGravity="center" />
 
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

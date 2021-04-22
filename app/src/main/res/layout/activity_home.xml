@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            android:background="@color/coral"
+            android:background="@color/MainColour"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -33,7 +33,6 @@
                 android:id="@+id/imageViewHomeTest12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginBottom="438dp"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/bar3"
@@ -44,12 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/imageViewHomeTest12"
-                android:layout_marginBottom="8dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/logo_shake_lab_while"
-                tools:ignore="VectorDrawableCompat"
+                android:layout_marginBottom="8dp"
+                android:background="#00FFFFFF"
 
-                />
+                app:srcCompat="@drawable/logo_shake_lab_while"
+                tools:ignore="VectorDrawableCompat" />
 
             <View
                 android:id="@+id/view1"
@@ -58,7 +58,6 @@
 
                 android:layout_below="@+id/imageViewHomeTest1"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="10dp"
 
@@ -90,7 +89,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
 
-                    app:srcCompat="@drawable/ic_science"
+                    app:srcCompat="@drawable/ic_shake3"
                     app:tint="@color/dark1"
                     tools:ignore="VectorDrawableCompat" />
 

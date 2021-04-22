@@ -9,7 +9,7 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
 
-    android:background="@drawable/bar2"
+    android:background="@drawable/bar3"
     >
     <!--"
     <ImageView
@@ -22,33 +22,24 @@
 
         />
         -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_gravity="center"
-        android:id="@+id/users_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:src="@drawable/ic_launcher_shake_lab_white"
-
-        />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="center"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="97dp"
+        android:fontFamily="sans-serif"
         android:text="Shake Lab"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/users_email"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="XXX"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        />
-
+</RelativeLayout>
 </LinearLayout>

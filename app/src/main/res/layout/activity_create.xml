@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/coral"
+            android:background="@color/MainColour"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -42,7 +42,7 @@
                     android:id="@+id/new_shake_image"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    app:civ_border_color="@color/coral"
+                    app:civ_border_color="@color/MainColour"
                     app:civ_border_width="2dp"
                     android:src="@drawable/ic_launcher_shake_lab_coral"
                     tools:ignore="VectorDrawableCompat"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
-                android:backgroundTint="@color/coral"
+                android:backgroundTint="@color/MainColour"
                 android:src="@drawable/logo_shake_lab"
                 app:tint="@color/white"
 
