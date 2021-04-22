@@ -13,7 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InfoShakeDialog extends AppCompatDialogFragment {
     private TextView nameShake;
@@ -24,6 +32,8 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
     private String name;
     private String Image;
     private Note note;
+
+    private AnyChartView anyChartView;
 
 
     InfoShakeDialog(Note note){
@@ -42,6 +52,8 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
 
         layers = view.findViewById(R.id.text_view_ingredients_count);
         ingredients = view.findViewById(R.id.IngredientsInfo);
+
+        createAnyChartView(view);
 
         setLayers();
         setIngredients();
@@ -71,6 +83,26 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         });
 
         return builder.create();
+    }
+
+    private void createAnyChartView(View view) {
+        anyChartView = view.findViewById(R.id.any_chart_view);
+
+        setupPieChart();
+    }
+
+
+
+    public void setupPieChart(){
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+
+        for(int i = 0; i < 3; i++)
+        {
+            dataEntries.add(new ValueDataEntry((i+1)+" ", i));
+        }
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
     }
 
     private void setIngredients() {

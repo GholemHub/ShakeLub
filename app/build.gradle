@@ -67,7 +67,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.6.0'
     //recyclerview
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    //PieChart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation 'com.android.support:multidex:1.0.3'
 
+    //Colorpicker
+    //implementation 'com.github.yukuku:ambilwarna:2.0.1'
     //circle
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'

@@ -81,6 +81,16 @@
 
     </LinearLayout>
 
+
+    <com.anychart.AnyChartView
+        android:id="@+id/any_chart_view"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center">
+
+    </com.anychart.AnyChartView>
+
+
         <TextView
         android:id="@+id/IngredientsInfo"
         android:layout_width="wrap_content"

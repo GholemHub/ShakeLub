@@ -34,6 +34,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+
 public class Profile extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
 
@@ -58,7 +60,7 @@ public class Profile extends AppCompatActivity {
         btnChangePass();
         createNavBar();
         createFeedbackBnts();
-        setTheme();
+        //setTheme();
         btnExit();
 
     }
@@ -73,13 +75,42 @@ public class Profile extends AppCompatActivity {
     }
 
     private void setTheme() {
-        themeBnt = findViewById(R.id.themeBnt);
-        TheamColor = findViewById(R.id.TheamColor);
+        //themeBnt = findViewById(R.id.themeBnt);
+        //TheamColor = findViewById(R.id.TheamColor);
 
-        //themeBnt.setBackgroundColor();
-        //themeBnt.setBackgroundColor(getColorWrapper(Profile.this,R.color.MainColour));
+        TheamColor.setTextColor(getResources().getColor(R.color.MainColour));
+        themeBnt.setBackgroundColor(getResources().getColor(R.color.MainColour));
+
+        themeBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //openColorPicker();
+            }
+        });
 
     }
+
+    int mDefoltColour;
+
+    /*private void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefoltColour, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                mDefoltColour = color;
+
+                getResources().getColor(R.color.MainColour);
+                themeBnt.setBackgroundColor(color);
+            }
+        });
+        colorPicker.show();
+
+    }*/
+
     private void createFeedbackBnts() {
         phone_feedBack = findViewById(R.id.phone_feedBack);
         mail_feedBack = findViewById(R.id.mail_feedBack);

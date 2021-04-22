@@ -68,18 +68,19 @@
                 android:id="@+id/TheamColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Theme color: "
                 android:layout_margin="30dp"
+                android:text="Theme color: "
                 android:textSize="24dp"
-                />
+                android:visibility="gone"
+                tools:visibility="gone" />
 
 
             <Button
                 android:id="@+id/themeBnt"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:background="#FFFFFF"
-                app:backgroundTint="#FFFFFF" />
+                android:visibility="gone"
+                tools:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
