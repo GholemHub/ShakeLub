@@ -7,56 +7,54 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-        android:layout_margin="4dp"
-    >
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/shake_view"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:src="@drawable/ic_launcher_shake_lab_coral"
-                app:civ_border_color="@color/MainColour"
-                app:civ_border_width="2dp"
-                tools:ignore="VectorDrawableCompat" />
-
-
-        </LinearLayout>
-
+        android:layout_height="731dp"
+        android:layout_margin="4dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-
-            <TextView
-                android:id="@+id/text_view_shake_name"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-                android:layout_marginTop="8dp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/shake_view"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/ic_launcher_shake_lab_coral"
+                    app:civ_border_color="@color/MainColour"
+                    app:civ_border_width="2dp"
+                    tools:ignore="VectorDrawableCompat" />
 
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="30sp" />
 
-            <TextView
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/text_view_shake_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
+
+                <TextView
                     android:id="@+id/text_view_ingredients_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,30 +75,34 @@
                     />
 
 
+            </LinearLayout>
+
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="154dp">
+
+            <TextView
+                android:id="@+id/IngredientsInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Ingredients:"
+                android:textSize="24sp" />
+
+        </ScrollView>
+
+        <com.anychart.AnyChartView
+            android:id="@+id/any_chart_view"
+            android:layout_width="300dp"
+            android:layout_height="328dp"
+            android:layout_gravity="center">
+
+        </com.anychart.AnyChartView>
+
+
     </LinearLayout>
-
-
-    <com.anychart.AnyChartView
-        android:id="@+id/any_chart_view"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center">
-
-    </com.anychart.AnyChartView>
-
-
-        <TextView
-        android:id="@+id/IngredientsInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ingredients:"
-        android:textSize="24sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        />
-
-</LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -26,12 +25,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -39,12 +34,13 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Create extends AppCompatActivity {
+import static com.example.shakelab.NoteIngredientAdapter.mNoteIngredientsList;
+
+public class Create extends AppCompatActivity implements PercentDialog.PercentDialogListener {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ArrayList<NoteIngredient> mNoteIngredientList;
 
@@ -87,8 +83,6 @@ public class Create extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openFileChooser();
-
-
             }
         });
     }
@@ -112,19 +106,7 @@ public class Create extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                           /* fileRefrence.child("shakeImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Toast.makeText(Create.this, "LINK: " + uri.toString(), Toast.LENGTH_SHORT).show();
-                                    // Got the download URL for 'users/me/profile.png'
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    Toast.makeText(Create.this, "LINK: ", Toast.LENGTH_SHORT).show();
-                                    // Handle any errors
-                                }
-                            });*/
+
 
                             fileRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
@@ -147,13 +129,7 @@ public class Create extends AppCompatActivity {
                             }
                             String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                             //String URL2 = dw.getResult().toString();
-
-
-
                             URL = downloadUri;
-
-
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -227,19 +203,39 @@ public class Create extends AppCompatActivity {
                     }
 
                 mAdapter.saveNames();
+                    //mAdapter.saveVa
 
                 String ingredientsStr = "";
                 String ingredientsStr2 = "";
-                int i = 0;
-                for (NoteIngredient list : mNoteIngredientList) {
+
+                /*for (NoteIngredient list : mNoteIngredientList) {
 
                     /// PUTTIN A NEW INGREDIENT WITH CURRENT NUMBER
                     newShake.put("ingredient" + list.getCountOfIngredient(),
-                                mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())));
+                            mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())));
 
                     /// CREATING A VARIABLE WITH ALL INGREDIENTS
-                        ingredientsStr += mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + " ";
-                        ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + "\n";
+                    ingredientsStr += mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + " ";
+                    ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + "\n";
+
+                    i++;
+                }*/
+
+                int i = 0;
+                for (NoteIngredient list : mNoteIngredientList) {
+
+                    /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
+
+
+                    int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
+                    newShake.put("ingredient" + list.getCountOfIngredient(),
+                            mAdapter.getIngredientInfo3(NumIngredient + 1));
+
+                    newShake.put("percent_of_ingredient" + list.getCountOfIngredient(), list.getPercentOfIngredient());
+
+                    /// CREATING A VARIABLE WITH ALL INGREDIENTS
+                        ingredientsStr += mAdapter.getIngredientInfo3(NumIngredient+1) + " ";
+                        ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(NumIngredient+1 )+ "\n";
 
                         i++;
                 }
@@ -285,12 +281,13 @@ public class Create extends AppCompatActivity {
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                IngredientsCount = newVal;
                 buildRecyclerView(newVal);
 
             }
         });
     }
-
+public static int IngredientsCount;
 
     public void buildRecyclerView(int newVal){
 
@@ -304,7 +301,7 @@ public class Create extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.create_recycler_view);
 
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new NoteIngredientAdapter(mNoteIngredientList);
+        mAdapter = new NoteIngredientAdapter(mNoteIngredientList, this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -344,9 +341,16 @@ public class Create extends AppCompatActivity {
                         Toast.makeText(Create.this, "Create", Toast.LENGTH_SHORT).show();
                         break;
                 }
-
                 return false;
             }
         });
     }
-}
+
+    @Override
+    public void applyTexts(int iPercent, String num) {
+
+
+            Toast.makeText(Create.this, "Quantity: " + iPercent, Toast.LENGTH_SHORT).show();
+
+        }
+    }
