@@ -3,6 +3,7 @@ package com.example.shakelab;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class InfoShakeDialog extends AppCompatDialogFragment {
     private TextView nameShake;
@@ -61,12 +63,10 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
 
         Image = note.getShakeImage();
 
+
+
         if(note.getShakeImage() != null && note.getShakeImage() != ""){
             Picasso.get().load(Image).into(shakeView);
-        }
-        else{
-
-            //Picasso.get().load(Image).into(shakeView);
         }
 
 
@@ -88,27 +88,45 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
     private void createAnyChartView(View view) {
         anyChartView = view.findViewById(R.id.any_chart_view);
 
-        setupPieChart();
+
+
+        setupPieChart(MakeIngredientsArray(note.getListPercentOfIngredients()));
     }
 
+    public List<String> MakeIngredientsArray(String str){
 
+        List<String> list = new ArrayList<String>();
 
-    public void setupPieChart(){
+        String str2 = "";
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) != 47){
+                str2 += str.charAt(i);
+            }
+            else if(str.charAt(i) == 47){
+                Log.d("STR", "LOGGER: " + str2);
+                list.add(str2);
+                str2 ="";
+            }
+        }
+        return list;
+    }
+
+    public void setupPieChart(List<String> list){
         Pie pie = AnyChart.pie();
         List<DataEntry> dataEntries = new ArrayList<>();
 
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < note.getCountOfLayers(); i++)
         {
-            dataEntries.add(new ValueDataEntry((i+1)+" ", i));
+            dataEntries.add(new ValueDataEntry(1, Integer.parseInt (list.get(i))));
         }
+
         pie.data(dataEntries);
+
         anyChartView.setChart(pie);
     }
 
     private void setIngredients() {
-
         ingredients.setText(note.getShakeIngredientsString2());
-
     }
 
     private void setLayers() {

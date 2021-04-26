@@ -146,7 +146,6 @@ public class Search extends AppCompatActivity {
         adapter = new NoteAdapter(options, ls);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 

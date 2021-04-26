@@ -74,7 +74,7 @@ public class PercentDialog extends AppCompatDialogFragment {
                     int ingredientNum = Integer.parseInt((String) list.ingredient_num.getText());
                     if(ingredientNum == Integer.parseInt(num)){
                         list.ingrediant_percent.setText("" + numberPicker.getValue());
-                        NoteIngredient note =  mNoteIngredientsList.get(ingredientNum);
+                        NoteIngredient note =  mNoteIngredientsList.get(ingredientNum-1);
                         note.setPercentOfIngredient("" + numberPicker.getValue());
                     }
                 }

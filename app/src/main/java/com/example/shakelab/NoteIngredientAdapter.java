@@ -133,7 +133,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
                     percentDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "2" );
 
                     int numer = Integer.parseInt(ingredient_num.getText().toString());
-                    NoteIngredient note = mNoteIngredientsList.get(numer );
+                    NoteIngredient note = mNoteIngredientsList.get(numer - 1);
                     //Toast.makeText(context, "Note: " + note.btnName, Toast.LENGTH_SHORT).show();
                     ingrediant_percent.setText("" + note.btnName);
 

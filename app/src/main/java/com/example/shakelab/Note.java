@@ -8,6 +8,18 @@ public class Note {
     private String shakeImage;
     private String shakeIngredientsString;
     private String shakeIngredientsString2;
+    private String listPercentOfIngredients;
+
+
+    public String getListPercentOfIngredients() {
+        return listPercentOfIngredients;
+    }
+
+    public void setListPercentOfIngredients(String listPercentOfIngredients) {
+        this.listPercentOfIngredients = listPercentOfIngredients;
+    }
+
+
 
     public Note(){}
 
@@ -23,6 +35,14 @@ public class Note {
         this.countOfLayers = layers;
         this.shakeIngredientsString = shakeIngredientsString;
         this.shakeIngredientsString2 = shakeIngredientsString;
+    }
+    public Note(String shakeName,int layers, String shakeImage, String shakeIngredientsString, String listPercentOfIngredients){
+        this.shakeName = shakeName;
+        this.shakeImage = shakeImage;
+        this.countOfLayers = layers;
+        this.shakeIngredientsString = shakeIngredientsString;
+        this.shakeIngredientsString2 = shakeIngredientsString;
+        this.listPercentOfIngredients = listPercentOfIngredients;
     }
 
     public String getShakeImage() {

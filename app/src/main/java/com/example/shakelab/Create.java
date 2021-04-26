@@ -207,26 +207,12 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
 
                 String ingredientsStr = "";
                 String ingredientsStr2 = "";
-
-                /*for (NoteIngredient list : mNoteIngredientList) {
-
-                    /// PUTTIN A NEW INGREDIENT WITH CURRENT NUMBER
-                    newShake.put("ingredient" + list.getCountOfIngredient(),
-                            mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())));
-
-                    /// CREATING A VARIABLE WITH ALL INGREDIENTS
-                    ingredientsStr += mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + " ";
-                    ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(Integer.parseInt(list.getCountOfIngredient())) + "\n";
-
-                    i++;
-                }*/
+                String listPercentOfIngredients = "";
 
                 int i = 0;
                 for (NoteIngredient list : mNoteIngredientList) {
 
                     /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
-
-
                     int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
                     newShake.put("ingredient" + list.getCountOfIngredient(),
                             mAdapter.getIngredientInfo3(NumIngredient + 1));
@@ -236,6 +222,8 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     /// CREATING A VARIABLE WITH ALL INGREDIENTS
                         ingredientsStr += mAdapter.getIngredientInfo3(NumIngredient+1) + " ";
                         ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(NumIngredient+1 )+ "\n";
+
+                    listPercentOfIngredients += list.getPercentOfIngredient() + "/";
 
                         i++;
                 }
@@ -250,7 +238,8 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                 }else{
                     newShake.put("shakeIngredientsString2", "");
                 }
-
+                if(listPercentOfIngredients != null && !listPercentOfIngredients.isEmpty())
+                newShake.put("listPercentOfIngredients",listPercentOfIngredients);
 
 
                 documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
