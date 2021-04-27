@@ -21,7 +21,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:src="@drawable/ic_launcher_shake_lab"
+            android:src="@drawable/ic_launcher_shake_lab_coral"
             app:civ_border_color="@color/MainColour"
             app:civ_border_width="2dp"
             tools:ignore="VectorDrawableCompat" />
@@ -38,7 +38,7 @@
             android:text="Title"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/black"
+            android:textColor="@color/dark1"
             android:textStyle="bold" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:maxLines="1"
             android:text="Ingredients"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/black" />
+            android:textColor="@color/dark1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,8 +66,6 @@
             android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-
-            android:layout_below="@+id/imageViewHomeTest1"
             android:layout_alignBottom="@+id/text_view_shake_ingredients"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
