@@ -1,5 +1,7 @@
 package com.example.shakelab;
 
+
+//NOTEINGREDIENT.JAVA IT IS PIES OF ARRAY IN CREATE CONTEXT
 public class NoteIngredient {
 
     private String nameOfIngredient = "";
@@ -16,9 +18,6 @@ public class NoteIngredient {
 
     private String percentOfIngredient = "";
 
-    public void setText(){
-       //setNameBtn(String str);
-    }
 
     public String getBtnName() {
         return btnName;

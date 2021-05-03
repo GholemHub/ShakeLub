@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.example.shakelab.Create.IngredientsCount;
 
+//ADAPTER FOR NOTEINGREDIENT
 public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAdapter.NoteIngredientsViewHolder> {
 
     public NoteIngredientsViewHolder nivh;
@@ -29,7 +30,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     private OnItemClickListener mListener;
 
     private static Activity context;
-    //Context context = (Context) this;
 
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
@@ -62,8 +62,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     public void saveNames(){
         for (NoteIngredientsViewHolder l: nivhList) {
             l.setIngredientInfo(l.ingredient_name.getText().toString());
-
-            //l.setIngredientInfo2(l.ingredient_name.getText().toString(),Integer.parseInt(l.ingrediant_percent.getText().toString()));
         }
     }
 
@@ -77,8 +75,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         public Button ingrediant_percent;
 
         private int iPercent;
-
-        public TextView btn;
 
         private String iName;
 
@@ -102,7 +98,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
         public void setIngredientInfo(String name){
             iName = name;
-            //return name;
         }
 
         public void setIngredientInfo2(String name, int percent){
@@ -111,10 +106,8 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         }
 
         @Override
-        public void applyTexts(int iPercent, String num) {
+        public void applyTexts(int iPercent, String num) {//INTERFACE WHICH HELP TO CONNECT NOTEADAPTER WITH CREATE CONTEXT
             Toast.makeText(context, "Create2: " + iPercent, Toast.LENGTH_SHORT).show();
-
-            //nivh.ingrediant_percent.setText(iPercent);
         }
 
 
@@ -124,7 +117,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
             ingredient_name = itemView.findViewById(R.id.ingredient_name);
             ingredient_num = itemView.findViewById(R.id.text_view_numberOfingredient);
             ingrediant_percent = itemView.findViewById(R.id.percent_ntb);
-            //ingrediant_percent.setText(listener.);
 
             ingrediant_percent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,7 +126,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
                     int numer = Integer.parseInt(ingredient_num.getText().toString());
                     NoteIngredient note = mNoteIngredientsList.get(numer - 1);
-                    //Toast.makeText(context, "Note: " + note.btnName, Toast.LENGTH_SHORT).show();
                     ingrediant_percent.setText("" + note.btnName);
 
                 }
@@ -160,7 +151,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
             }
         });
 
-        return nivh;
+        return nivh;//OUR NOTEINGREDIENT ITEM
     }
 
 
@@ -170,7 +161,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         this.context = context;
 
         mNoteIngredientsList = noteList;
-
     }
 
     @Override

@@ -13,7 +13,7 @@
             android:title="Find"
             android:icon="@drawable/ic_search" />
         <item android:id="@+id/nav_create"
-            android:title="Science"
+            android:title="Create"
             android:icon="@drawable/ic_science" />
 </group>
 
@@ -22,9 +22,7 @@
             <item android:id="@+id/nav_profile"
                 android:title="My profile"
                 android:icon="@drawable/ic_person" />
-            <item android:id="@+id/nav_settings"
-                android:title="Settings"
-                android:icon="@drawable/ic_settings" />
+
         </menu>
     </item>
 </menu>

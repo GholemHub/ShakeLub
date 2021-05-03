@@ -33,6 +33,7 @@ import java.util.Map;
 public class ChangeMailDialog extends AppCompatDialogFragment {
     private EditText change_Email_View;
     private Button Apply_Changes ;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.change_mail_dialog, null);
+
 
         builder.setView(view).setTitle("Change email").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -49,8 +51,6 @@ public class ChangeMailDialog extends AppCompatDialogFragment {
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-
 
             }
         });
@@ -70,9 +70,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment {
                 Firebase();
             }
 
-
         });
-
 
     }
     FirebaseAuth fAuth;
@@ -85,6 +83,8 @@ public class ChangeMailDialog extends AppCompatDialogFragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
+        //CURRENT USER
         DocumentReference documentReference = fStore.collection("users").document(user.getEmail());
 
         Map<String,Object> newMail = new HashMap<>();
@@ -99,7 +99,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment {
         }
         if(!change_Email_View.getText().toString().isEmpty())
         {
-            Toast.makeText(getActivity(), "!!!!!!!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "!!!!!!!!!", Toast.LENGTH_SHORT).show();
             newMail.put("nickname", change_Email_View.getText().toString());
             documentReference.set(newMail).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

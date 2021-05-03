@@ -46,8 +46,6 @@ public class Profile extends AppCompatActivity {
 
     private ImageView mail_feedBack;
     private ImageView phone_feedBack;
-    private Button themeBnt;
-    private TextView TheamColor;
 
 
     @Override
@@ -56,11 +54,9 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         inicialization();
-        //btnChangeMail();
         btnChangePass();
         createNavBar();
         createFeedbackBnts();
-        //setTheme();
         btnExit();
 
     }
@@ -74,43 +70,6 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    private void setTheme() {
-        //themeBnt = findViewById(R.id.themeBnt);
-        //TheamColor = findViewById(R.id.TheamColor);
-
-        TheamColor.setTextColor(getResources().getColor(R.color.MainColour));
-        themeBnt.setBackgroundColor(getResources().getColor(R.color.MainColour));
-
-        themeBnt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //openColorPicker();
-            }
-        });
-
-    }
-
-    int mDefoltColour;
-
-    /*private void openColorPicker() {
-        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefoltColour, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-
-            }
-
-            @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                mDefoltColour = color;
-
-                getResources().getColor(R.color.MainColour);
-                themeBnt.setBackgroundColor(color);
-            }
-        });
-        colorPicker.show();
-
-    }*/
-
     private void createFeedbackBnts() {
         phone_feedBack = findViewById(R.id.phone_feedBack);
         mail_feedBack = findViewById(R.id.mail_feedBack);
@@ -121,7 +80,7 @@ public class Profile extends AppCompatActivity {
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
                     emailIntent.setData(Uri.parse("mailto:"));
                     emailIntent.setType("text/plain");
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "shakelab@ask.com" });
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "oleksandrsegeda37@gmail.com" });
                     startActivity(emailIntent);
             }
         });
@@ -136,6 +95,8 @@ public class Profile extends AppCompatActivity {
 
     }
 
+
+    //TRY TO TAKE A PERMISSION FOR CALLING
     private static final int REQUEST_CALL = 1;
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -153,9 +114,8 @@ public class Profile extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(Profile.this,
                 Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Profile.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-            //Toast.makeText(phone.this, "Please login", Toast.LENGTH_SHORT).show();
         }else{
-            String contact_number="0980707638";
+            String contact_number="792749214";
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:" + contact_number));
             startActivity(callIntent);
@@ -174,23 +134,6 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
-    }
-
-    private void btnChangeMail() {
-
-        mail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-            }
-
-        });
-    }
-
-
-    private void openDialog() {
-         ChangeMailDialog changeMailDialog = new ChangeMailDialog();
-        changeMailDialog.show(getSupportFragmentManager(), "Change mail dialog");
     }
 
     private void btnChangePass() {
@@ -253,7 +196,6 @@ public class Profile extends AppCompatActivity {
             String uid = user.getUid();
             mail.setText(email);
         }
-
     }
 
 
@@ -292,7 +234,6 @@ public class Profile extends AppCompatActivity {
 
                         break;
                 }
-
                 return false;
             }
         });

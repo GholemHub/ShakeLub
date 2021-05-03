@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+//ADAPTER FOR NOTEADAPTER
 public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteHolder> implements Filterable {
 private OnItemClickListener listener;
 
@@ -75,10 +76,10 @@ private OnItemClickListener listener;
         }
     };
 
+    //BRIDGE BETWEEN XML & NOTE.JAVA
     class NoteHolder extends RecyclerView.ViewHolder{
 
         TextView textViewShakeName;
-        //TextView textViewLayers;
         TextView text_view_shake_ingredients;
         ImageView imageViewShake;
 
@@ -87,11 +88,10 @@ private OnItemClickListener listener;
             super(itemView);
 
             textViewShakeName = itemView.findViewById(R.id.text_view_shake_name);
-            //textViewLayers =  itemView.findViewById(R.id.text_view_layers);
             imageViewShake = itemView.findViewById(R.id.image_view_shake);
             text_view_shake_ingredients = itemView.findViewById(R.id.text_view_shake_ingredients);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {//ITEM = TOUCHED(CHOSE) XML FILE
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -113,10 +113,9 @@ private OnItemClickListener listener;
 
     @Override
     protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
+        //LIKE ONCREATE METHOD BUT FOR VIEWHOLDER
         holder.textViewShakeName.setText(model.getShakeName());
-        //holder.textViewLayers.setText(String.valueOf(model.getCountOfLayers()));
         holder.text_view_shake_ingredients.setText(String.valueOf(model.getShakeIngredientsString()));
-
 
         if(model.getShakeImage() != null && model.getShakeImage() != ""){
             Picasso.get().load(model.getShakeImage()).into(holder.imageViewShake);

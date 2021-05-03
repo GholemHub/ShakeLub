@@ -60,8 +60,9 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
     private ImageView new_shake_image;
 
     private StorageReference mStorageRef;
-    //private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
+    private String URL;
+
 
 
     @Override
@@ -87,22 +88,25 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
         });
     }
 
+    //FUNCTION TO AUTO INDICATE THE FILE EXTENTION
     private String getFileExtention(Uri uri){
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-    private String URL;
+
 
     private void uploadFile(){
 
+        //WAY TO CORRECT COLLECTION IN DATABASE
         mStorageRef = FirebaseStorage.getInstance().getReference("shakeImage");
 
-        if(new_shake_image != null){
+
+        if(new_shake_image != null){//MAKING FILE NAME
             StorageReference fileRefrence = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtention(mImageUri));
 
-            mUploadTask = fileRefrence.putFile(mImageUri)
+            mUploadTask = fileRefrence.putFile(mImageUri)//PUTTING FILE TO DB
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -112,23 +116,14 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     URL = uri.toString();
-                                    Toast.makeText(Create.this, "URL: " + uri.toString(), Toast.LENGTH_SHORT).show();
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
+                            }).addOnFailureListener(new OnFailureListener() {//IF USER FORGOT TO PUT THE IMAGE
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Create.this, "URL: NO", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Create.this, "No image", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            Task<Uri> dw = taskSnapshot.getStorage().getDownloadUrl();
-                            //String URL2 = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-
-                            if(dw.isSuccessful()){
-
-                            }
-                            String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                            //String URL2 = dw.getResult().toString();
+                            String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();//MAKING LINK TO THE FIRESTORE
                             URL = downloadUri;
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -136,16 +131,10 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(Create.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                }
             });
 
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-
         }
     }
     private void openFileChooser() {
@@ -163,14 +152,12 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
         && data != null && data.getData() != null){
             mImageUri = data.getData();
 
-            Picasso.get().load(mImageUri).into(new_shake_image);
+            Picasso.get().load(mImageUri).into(new_shake_image);//SHOWING THE CHOSE IMAGE
             uploadFile();
         }
     }
 
     private void btnCreate() {
-        //Toast.makeText(this, uploadFile(), Toast.LENGTH_SHORT).show();
-
         fStore = FirebaseFirestore.getInstance();
         createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
         new_shake_name = findViewById(R.id.new_shake_name);
@@ -203,7 +190,6 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     }
 
                 mAdapter.saveNames();
-                    //mAdapter.saveVa
 
                 String ingredientsStr = "";
                 String ingredientsStr2 = "";
@@ -228,6 +214,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                         i++;
                 }
 
+                //CATCHING ERRORS
                 if(ingredientsStr != null && !ingredientsStr.isEmpty()){
                     newShake.put("shakeIngredientsString", ingredientsStr);
                 }else{
@@ -242,6 +229,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                 newShake.put("listPercentOfIngredients",listPercentOfIngredients);
 
 
+                //POOSHING TO DB OUR MAP WITH INFORMATION
                 documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -12,42 +12,14 @@
         android:id="@+id/SignUp"
         android:layout_width="57dp"
         android:layout_height="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="64dp"
         android:text="Sign Up"
         android:textColor="@color/MainColour"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GoogleSignIn" />
-
-    <Button
-        android:id="@+id/GoogleSignIn"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="175dp"
-        android:text="G+"
-        android:textSize="18sp"
-        android:visibility="invisible"
-        app:backgroundTint="#F85F6A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="8dp"
-        android:text="or use of your Google profile"
-        android:textColor="#989EB1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SignIn"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/SignIn" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -167,14 +139,14 @@
         android:id="@+id/ForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="120dp"
         android:text="Forgot Password?"
         android:textColor="#989EB1"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GoogleSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/SignIn" />
 
     <Button
         android:id="@+id/SignIn"
@@ -188,15 +160,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

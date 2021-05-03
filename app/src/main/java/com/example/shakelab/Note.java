@@ -40,8 +40,8 @@ public class Note {
         this.shakeName = shakeName;
         this.shakeImage = shakeImage;
         this.countOfLayers = layers;
-        this.shakeIngredientsString = shakeIngredientsString;
-        this.shakeIngredientsString2 = shakeIngredientsString;
+        this.shakeIngredientsString = shakeIngredientsString;//INFO WITHOUT '\N'
+        this.shakeIngredientsString2 = shakeIngredientsString;//INFO WITH '\N'
         this.listPercentOfIngredients = listPercentOfIngredients;
     }
 
@@ -51,7 +51,7 @@ public class Note {
 
     public String getShakeIngredientsString() {
         return shakeIngredientsString;
-    }
+    }//INFO WITHOUT '\N'
 
     public void setShakeIngredientsString2(String shakeIngredientsString2) {
         this.shakeIngredientsString2 = shakeIngredientsString2;
@@ -59,7 +59,7 @@ public class Note {
 
     public String getShakeIngredientsString2() {
         return shakeIngredientsString2;
-    }
+    }//INFO WITH '\N'
 
     public void setShakeIngredientsString(String shakeIngredientsString) {
         this.shakeIngredientsString = shakeIngredientsString;

@@ -78,92 +78,92 @@ public class RegiterActivity extends AppCompatActivity {
                 String Password = textPassword.getText().toString().trim();
                 String Nickname = textNickname.getText().toString().trim();
 
-
+                //ERRORS
                 if(TextUtils.isEmpty(Nickname)){
-                    textEmail.setError("Nickname is Required");
-                    progressBar.setVisibility(View.INVISIBLE);
+                    textNickname.setError("Nickname is required");
                     return;
                 }
 
                 if(TextUtils.isEmpty(Email)){
-                    textEmail.setError("Email is Required");
-                    progressBar.setVisibility(View.INVISIBLE);
+                    textEmail.setError("Email is required");
                     return;
                 }
 
                 if (Password.length() < 6) {
-                    textPassword.setError("Too small Password");
-                    progressBar.setVisibility(View.INVISIBLE);
+                    textPassword.setError("Too small password");
+                    return;
+                }
+                if(Policy.isChecked() == false){
+                    Policy.setError("Is required ");
                     return;
                 }
 
+                createUser(Email,Password, Nickname);
 
-
-                fAuth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            Toast.makeText(RegiterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(Email);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("nickname",Nickname);
-                            user.put("email",Email);
-                            user.put("password",Password);
-
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                }
-                            });
-                                //VerifyUser();
-                                //if(fAuth.getCurrentUser().isEmailVerified()){
-                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                //}
-                        }else{
-                            Toast.makeText(getApplicationContext(), "User Does not Created " +
-                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
             }
         });
 
         BackToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));//GO TO ANOTHER ACTIVITY
             }
         });
 
     }
+    private void createUser(String Email, String Password, String Nickname) {
+        fAuth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
 
-    private void VerifyUser() {
+                    Toast.makeText(RegiterActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    userID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fStore.collection("users").document(Email);
+                    Map<String,Object> user = new HashMap<>();//NEW MAP WITH INFORMATION ABOUT USER
+                    user.put("nickname",Nickname);
+                    user.put("email",Email);
+                    user.put("password",Password);
 
-        //Toast.makeText(getApplicationContext(), "Verification Email Hes been Sent", Toast.LENGTH_SHORT).show();
+
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {//PUSHING TO THE DB
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                        }
+                    });
+                    VerifyUser();
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                }else{
+                    Toast.makeText(getApplicationContext(), "User does not created " +
+                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+    private void VerifyUser() {//SENDING VERIFY MAIL TO USER EMAIL
+
+        Toast.makeText(getApplicationContext(), "Verification email hes been Sent", Toast.LENGTH_SHORT).show();
 
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         FirebaseUser fuser = fAuth.getCurrentUser();
 
-        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {//MAIL VERIFICATION
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "Verification Email Hes been Sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Verification email hes been sent", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                Log.d(TAG, "onFailure: email not sent " + e.getMessage());
             }
         });
     }

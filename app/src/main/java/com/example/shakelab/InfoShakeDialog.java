@@ -55,7 +55,7 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         layers = view.findViewById(R.id.text_view_ingredients_count);
         ingredients = view.findViewById(R.id.IngredientsInfo);
 
-        createAnyChartView(view);
+        createAnyChartView(view);//CREATING PIE-CAHRT
 
         setLayers();
         setIngredients();
@@ -88,13 +88,11 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
     private void createAnyChartView(View view) {
         anyChartView = view.findViewById(R.id.any_chart_view);
 
-
-
-        setupPieChart(MakeIngredientsArray(note.getListPercentOfIngredients()));
+        setupPieChart(MakeIngredientsArray(note.getListPercentOfIngredients()));//SETTING VALUES OT PIE-CHART
     }
 
     public List<String> MakeIngredientsArray(String str){
-
+    //TAKING THE STRING ARRAY AND MAKE A NEW ARRAY
         List<String> list = new ArrayList<String>();
 
         String str2 = "";

@@ -76,17 +76,17 @@ public class Search extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-
+        //TOOLBAR
         toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigarion_drawer_open,R.string.navigarion_drawer_close);
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         search_view = findViewById(R.id.search_view);
         go_to_create_Layout = findViewById(R.id.go_to_create_Layout);
 
-        go_to_create_Layout.setOnClickListener(new View.OnClickListener() {
+        go_to_create_Layout.setOnClickListener(new View.OnClickListener() {//BUTTON TO CREATE NEW SHAKE
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Create.class));
@@ -105,7 +105,7 @@ public class Search extends AppCompatActivity {
 
                 if(newText.isEmpty()){
                     query = notebookRef
-                            .orderBy("countOfLayers", Query.Direction.DESCENDING);
+                            .orderBy("countOfLayers", Query.Direction.DESCENDING);//PRIORITY IS IN "countOfLayers"
 
                     FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                             .setQuery(query, Note.class)
@@ -155,10 +155,9 @@ public class Search extends AppCompatActivity {
 
                 Note note = documentSnapshot.toObject(Note.class);
                 String id = documentSnapshot.getId();
-                //String path = documentSnapshot.getReference().getPath();
 
                 Toast.makeText(Search.this, "Shake " + id, Toast.LENGTH_SHORT).show();
-                openDialog(note);
+                openDialog(note);//CREATING DIALOG WITN INFORMATION OF SHAKE
             }
         });
     }
@@ -171,7 +170,6 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-
         adapter.startListening();
     }
 
@@ -188,7 +186,4 @@ public class Search extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

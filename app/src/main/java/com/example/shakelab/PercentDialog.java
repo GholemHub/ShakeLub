@@ -21,7 +21,6 @@ import static com.example.shakelab.NoteIngredientAdapter.nivhList;
 public class PercentDialog extends AppCompatDialogFragment {
     private NumberPicker numberPicker;
     private PercentDialogListener listener;
-    private Create listener2;
     public static int text = 0;
     public static String num;
     public static Button btn;
@@ -30,19 +29,17 @@ public class PercentDialog extends AppCompatDialogFragment {
         this.num = num;
     }
     public PercentDialog(String num, Button btn){
-
         this.num = num;
         this.btn = btn;
     }
 
 
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(@NonNull Context context) {//HELP US TO REMEMBER THAT WE HAVE TO IMPLEMENT THE INTERFACE IN CREATE CONTEXT
         super.onAttach(context);
 
         try {
             listener = (PercentDialogListener) context;
-
         }catch (ClassCastException e){
             throw  new ClassCastException(context.toString() + "must implement PercentDialogListener");
         }
@@ -57,7 +54,7 @@ public class PercentDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.percent_dialog, null);
 
 
-
+//BUILDER OF OUR DIALOG
         builder.setView(view).setTitle("").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -88,7 +85,7 @@ public class PercentDialog extends AppCompatDialogFragment {
     }
 
 
-    public interface PercentDialogListener{
+    public interface PercentDialogListener{//INTERFACE
         void applyTexts(int iPercent, String num);
 
     }
