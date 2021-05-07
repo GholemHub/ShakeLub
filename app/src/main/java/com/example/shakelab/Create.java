@@ -120,7 +120,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                             }).addOnFailureListener(new OnFailureListener() {//IF USER FORGOT TO PUT THE IMAGE
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Create.this, "No image", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(Create.this, "No image", Toast.LENGTH_SHORT).show();
                                 }
                             });
                             String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();//MAKING LINK TO THE FIRESTORE
@@ -171,8 +171,6 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                Toast.makeText(Create.this, "URL::: "+ URL, Toast.LENGTH_SHORT).show();
 
                 DocumentReference documentReference = fStore.collection("shakes")
                         .document(new_shake_name.getText().toString());
