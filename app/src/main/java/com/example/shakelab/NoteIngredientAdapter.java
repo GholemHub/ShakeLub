@@ -41,13 +41,14 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
     public String getIngredientInfo3(int num){
         String names = "";
-        int i = 0;
+        int i = -1;
         for (NoteIngredientsViewHolder l: nivhList) {
-            i++;
+
             if(num == i){
                 names = l.getiName();
                 break;
             }
+            i++;
         }
         return names;
     }
@@ -147,7 +148,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 

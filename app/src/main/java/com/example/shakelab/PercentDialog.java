@@ -75,7 +75,6 @@ public class PercentDialog extends AppCompatDialogFragment {
                         note.setPercentOfIngredient("" + numberPicker.getValue());
                     }
                 }
-
             }
         });
 

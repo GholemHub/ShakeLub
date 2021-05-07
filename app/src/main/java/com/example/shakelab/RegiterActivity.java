@@ -45,7 +45,7 @@ public class RegiterActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
     private Button SignUp;
-    private Button btnVerify;
+
 
     public static final String TAG = "TAG";
 

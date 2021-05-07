@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        forgotOassword();
+        forgotPassword();
 
         signIn();
 
     }
 
-    private void forgotOassword() {
+    private void forgotPassword() {
         ForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 passwordResetDialog.create().show();
-
             }
         });
     }
@@ -176,7 +175,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            startActivity(new Intent(getApplicationContext(), IntroActivity.class));
                         }else{
                             Toast.makeText(getApplicationContext(), "Sign In Faled " +
                                     task.getException().getMessage(), Toast.LENGTH_SHORT).show();
