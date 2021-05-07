@@ -199,7 +199,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
                     int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
                     newShake.put("ingredient" + list.getCountOfIngredient(),
-                            mAdapter.getIngredientInfo3(NumIngredient + 1));
+                            mAdapter.getIngredientInfo3(NumIngredient+1));
 
                     newShake.put("percent_of_ingredient" + list.getCountOfIngredient(), list.getPercentOfIngredient());
 
