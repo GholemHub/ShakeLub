@@ -187,6 +187,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                         return;
                     }
 
+                    
                 mAdapter.saveNames();
 
                 String ingredientsStr = "";
