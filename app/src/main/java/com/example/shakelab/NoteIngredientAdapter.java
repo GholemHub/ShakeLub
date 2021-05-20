@@ -35,6 +35,10 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         mListener = listener;
     }
 
+    public void PercentError() {
+        nivh.PercentError();
+    }
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -131,6 +135,10 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
                 }
             });
+        }
+
+        public void PercentError() {
+            ingrediant_percent.setError("Required");
         }
     }
 

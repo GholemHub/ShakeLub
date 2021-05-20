@@ -158,24 +158,28 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
     }
 
     private void btnCreate() {
-        fStore = FirebaseFirestore.getInstance();
-        createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
-        new_shake_name = findViewById(R.id.new_shake_name);
+            fStore = FirebaseFirestore.getInstance();
+            createBnt = (FloatingActionButton)findViewById(R.id.create_new_shake_btn);
+            new_shake_name = findViewById(R.id.new_shake_name);
 
-        createBnt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            createBnt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(numberPicker.getValue() == 0){
+                        Toast.makeText(Create.this, "No engredients", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                if(new_shake_name.getText().toString().isEmpty()){
-                    new_shake_name.setError("Name is required");
-                    Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                    if(new_shake_name.getText().toString().isEmpty()){
+                        new_shake_name.setError("Name is required");
+                        Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                DocumentReference documentReference = fStore.collection("shakes")
-                        .document(new_shake_name.getText().toString());
+                    DocumentReference documentReference = fStore.collection("shakes")
+                            .document(new_shake_name.getText().toString());
 
-                Map<String,Object> newShake = new HashMap<>();
+                    Map<String,Object> newShake = new HashMap<>();
 
                     newShake.put("shakeName", new_shake_name.getText().toString());
                     newShake.put("shakeImage", URL);
@@ -187,62 +191,73 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                         return;
                     }
 
-                    
-                mAdapter.saveNames();
+                    mAdapter.saveNames();
 
-                String ingredientsStr = "";
-                String ingredientsStr2 = "";
-                String listPercentOfIngredients = "";
+                    String ingredientsStr = "";
+                    String ingredientsStr2 = "";
+                    String listPercentOfIngredients = "";
 
-                int i = 0;
-                for (NoteIngredient list : mNoteIngredientList) {
+                    int i = 0;
+                    for (NoteIngredient list : mNoteIngredientList) {
 
-                    /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
-                    int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
-                    newShake.put("ingredient" + list.getCountOfIngredient(),
-                            mAdapter.getIngredientInfo3(NumIngredient+1));
+                        /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
+                        int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
+                        newShake.put("ingredient" + list.getCountOfIngredient(),
+                                mAdapter.getIngredientInfo3(NumIngredient+1));
 
-                    newShake.put("percent_of_ingredient" + list.getCountOfIngredient(), list.getPercentOfIngredient());
+                        ///CHECKING IF PERCENT IS EXIST
+                        if(list.getPercentOfIngredient() != null && !list.getPercentOfIngredient().isEmpty()){
+                            newShake.put("percent_of_ingredient" + list.getCountOfIngredient(), list.getPercentOfIngredient());
+                            listPercentOfIngredients += list.getPercentOfIngredient() + "/";
+                            Toast.makeText(Create.this, "Required", Toast.LENGTH_SHORT).show();
+                        }else
+                        {
+                            Toast.makeText(Create.this, "Required2", Toast.LENGTH_SHORT).show();
+                            mAdapter.PercentError();
+                            return;
+                        }
 
-                    /// CREATING A VARIABLE WITH ALL INGREDIENTS
+
+                        /// CREATING A VARIABLE WITH ALL INGREDIENTS
                         ingredientsStr += mAdapter.getIngredientInfo3(NumIngredient+1) + " ";
                         ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(NumIngredient+1 )+ "\n";
 
-                    listPercentOfIngredients += list.getPercentOfIngredient() + "/";
+
 
                         i++;
-                }
-
-                //CATCHING ERRORS
-                if(ingredientsStr != null && !ingredientsStr.isEmpty()){
-                    newShake.put("shakeIngredientsString", ingredientsStr);
-                }else{
-                    newShake.put("shakeIngredientsString", "");
-                }
-                if(ingredientsStr2 != null && !ingredientsStr2.isEmpty()){
-                    newShake.put("shakeIngredientsString2", ingredientsStr2);
-                }else{
-                    newShake.put("shakeIngredientsString2", "");
-                }
-                if(listPercentOfIngredients != null && !listPercentOfIngredients.isEmpty())
-                newShake.put("listPercentOfIngredients",listPercentOfIngredients);
-
-
-                //POOSHING TO DB OUR MAP WITH INFORMATION
-                documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+
+                    //CATCHING ERRORS
+                    if(ingredientsStr != null && !ingredientsStr.isEmpty()){
+                        newShake.put("shakeIngredientsString", ingredientsStr);
+                    }else{
+                        newShake.put("shakeIngredientsString", "");
                     }
-                });
-                startActivity(new Intent(getApplicationContext(), Search.class));
-            }
-        });
+                    if(ingredientsStr2 != null && !ingredientsStr2.isEmpty()){
+                        newShake.put("shakeIngredientsString2", ingredientsStr2);
+                    }else{
+                        newShake.put("shakeIngredientsString2", "");
+                    }
+                    if(listPercentOfIngredients != null && !listPercentOfIngredients.isEmpty())
+                        newShake.put("listPercentOfIngredients",listPercentOfIngredients);
+
+
+                    //POOSHING TO DB OUR MAP WITH INFORMATION
+                    documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    startActivity(new Intent(getApplicationContext(), Search.class));
+                }
+            });
+
     }
 
     private void createNumberPicker() {
