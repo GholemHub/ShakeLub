@@ -1,6 +1,7 @@
 package com.example.shakelab;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,17 +45,13 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     }
 
     public String getIngredientInfo3(int num){
-        String names = "";
-        int i = -1;
-        for (NoteIngredientsViewHolder l: nivhList) {
+        String names = "123";
 
-            if(num == i){
-                names = l.getiName();
-                break;
-            }
-            i++;
-        }
-        return names;
+        NoteIngredient currentItem = mNoteIngredientsList.get(num-1);
+
+        //Log.d("NumIngredient", " Nname Of Ingredient " +  currentItem.getCountOfIngredient());
+
+        return currentItem.getCountOfIngredient();
     }
 
     public String getIngredientNum(){
@@ -151,7 +148,8 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
 
         nivh = new NoteIngredientsViewHolder(v, mListener);
-        nivhList.add(new NoteIngredientsViewHolder(v, mListener));
+
+        nivhList.add(nivh);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +174,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
         NoteIngredient currentItem = mNoteIngredientsList.get(position);
 
         holder.ingredient_name.setText(currentItem.getNameOfIngredient());
-        holder.ingredient_name.getText();
         holder.ingredient_num.setText(currentItem.getCountOfIngredient());
     }
 
