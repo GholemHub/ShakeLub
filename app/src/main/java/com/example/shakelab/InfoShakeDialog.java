@@ -113,14 +113,36 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         Pie pie = AnyChart.pie();
         List<DataEntry> dataEntries = new ArrayList<>();
 
+        List<String> str = getString(note);
+
         for(int i = 0; i < note.getCountOfLayers(); i++)
         {
-            dataEntries.add(new ValueDataEntry(note.getShakeName(), Integer.parseInt (list.get(i))));
+
+            dataEntries.add(new ValueDataEntry(str.get(i), Integer.parseInt (list.get(i))));
+            Log.d("NumIngredient","note.getShakeName() " + str.get(i) );
         }
 
         pie.data(dataEntries);
 
         anyChartView.setChart(pie);
+    }
+
+    private List<String> getString(Note note) {
+        List<String> listIngredients = new ArrayList<>();
+        //note.getShakeIngredientsString();
+                String str1 = "";
+                char str2 = '/';
+        for(int i = 0; i < note.getShakeIngredientsString3().length(); i++){
+            if(note.getShakeIngredientsString3().charAt(i) == str2){
+                listIngredients.add(str1);
+                str1 = "";
+            }else{
+                str1 += note.getShakeIngredientsString3().charAt(i);
+            }
+        }
+
+
+    return listIngredients;
     }
 
     private void setIngredients() {

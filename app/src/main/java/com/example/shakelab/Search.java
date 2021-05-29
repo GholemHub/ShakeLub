@@ -156,7 +156,7 @@ public class Search extends AppCompatActivity {
                 Note note = documentSnapshot.toObject(Note.class);
                 String id = documentSnapshot.getId();
 
-                Toast.makeText(Search.this, "Shake " + id, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Search.this, "Shake " + id, Toast.LENGTH_SHORT).show();
                 openDialog(note);//CREATING DIALOG WITN INFORMATION OF SHAKE
             }
         });

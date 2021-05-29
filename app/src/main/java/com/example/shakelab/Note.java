@@ -8,6 +8,7 @@ public class Note {
     private String shakeImage;
     private String shakeIngredientsString;
     private String shakeIngredientsString2;
+    private String shakeIngredientsString3;
     private String listPercentOfIngredients;
 
 
@@ -51,6 +52,10 @@ public class Note {
 
     public String getShakeIngredientsString() {
         return shakeIngredientsString;
+    }//INFO WITHOUT '\N'
+
+    public String getShakeIngredientsString3() {
+        return shakeIngredientsString3;
     }//INFO WITHOUT '\N'
 
     public void setShakeIngredientsString2(String shakeIngredientsString2) {

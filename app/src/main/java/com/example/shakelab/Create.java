@@ -131,12 +131,12 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Create.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Create.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
         }else{
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
     private void openFileChooser() {
@@ -168,13 +168,13 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                 @Override
                 public void onClick(View v) {
                     if(numberPicker.getValue() == 0){
-                        Toast.makeText(Create.this, "No engredients", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Create.this, "No engredients", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     if(new_shake_name.getText().toString().isEmpty()){
                         new_shake_name.setError("Name is required");
-                        Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Create.this, "No name", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -188,7 +188,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     newShake.put("countOfLayers", numberPicker.getValue());
 
                     if(mNoteIngredientList != null && mNoteIngredientList.isEmpty()){
-                        Toast.makeText(Create.this, "Field the ingredients", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Create.this, "Field the ingredients", Toast.LENGTH_SHORT).show();
                         mAdapter.error();
                         return;
                     }
@@ -197,6 +197,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
 
                     String ingredientsStr = "";
                     String ingredientsStr2 = "";
+                    String ingredientsStr3 = "";
                     String listPercentOfIngredients = "";
 
                     int i = 0;
@@ -214,10 +215,10 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                         if(list.getPercentOfIngredient() != null && !list.getPercentOfIngredient().isEmpty()){
                             newShake.put("percent_of_ingredient" + list.getCountOfIngredient(), list.getPercentOfIngredient());
                             listPercentOfIngredients += list.getPercentOfIngredient() + "/";
-                            Toast.makeText(Create.this, "Required", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Create.this, "Required", Toast.LENGTH_SHORT).show();
                         }else
                         {
-                            Toast.makeText(Create.this, "Required2", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Create.this, "Required2", Toast.LENGTH_SHORT).show();
                             mAdapter.PercentError();
                             return;
                         }
@@ -226,6 +227,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                         /// CREATING A VARIABLE WITH ALL INGREDIENTS
                         ingredientsStr += mAdapter.getIngredientInfo3(NumIngredient) + " ";
                         ingredientsStr2 += (i+1) + ") "+ mAdapter.getIngredientInfo3(NumIngredient )+ "\n";
+                        ingredientsStr3 += mAdapter.getIngredientInfo3(NumIngredient ) + "/";
 
 
 
@@ -238,13 +240,24 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     }else{
                         newShake.put("shakeIngredientsString", "");
                     }
+
                     if(ingredientsStr2 != null && !ingredientsStr2.isEmpty()){
                         newShake.put("shakeIngredientsString2", ingredientsStr2);
                     }else{
                         newShake.put("shakeIngredientsString2", "");
                     }
+
+                    if(ingredientsStr3 != null && !ingredientsStr3.isEmpty()){
+                        newShake.put("shakeIngredientsString3", ingredientsStr3);
+                    }else{
+                        newShake.put("shakeIngredientsString3", "");
+                    }
+
+
                     if(listPercentOfIngredients != null && !listPercentOfIngredients.isEmpty())
                         newShake.put("listPercentOfIngredients",listPercentOfIngredients);
+
+
 
                     nivhList.clear();
                     nivhList = new ArrayList<NoteIngredientAdapter.NoteIngredientsViewHolder>();
@@ -253,12 +266,12 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Create.this, "None", Toast.LENGTH_SHORT).show();
                         }
                     });
                     startActivity(new Intent(getApplicationContext(), Search.class));
@@ -337,7 +350,7 @@ public static int NewValue = 0;
                         break;
                     case R.id.nav_create:
                         startActivity(new Intent(getApplicationContext(), Create.class));
-                        Toast.makeText(Create.this, "Create", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Create.this, "Create", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -349,7 +362,7 @@ public static int NewValue = 0;
     public void applyTexts(int iPercent, String num) {
 
 
-            Toast.makeText(Create.this, "Quantity: " + iPercent, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(Create.this, "Quantity: " + iPercent, Toast.LENGTH_SHORT).show();
 
         }
     }

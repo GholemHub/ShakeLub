@@ -48,26 +48,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     public String getIngredientInfo3(int num){
         String names = "NON";
 
-        //NoteIngredient currentItem = mNoteIngredientsList.get(num-1);
-
-        //Log.d("NumIngredient", "Name: " + nivhList.size() + " Nname 2 " +  currentItem.getText().toString());
-
-
-
-        /*for (NoteIngredientsViewHolder l: nivhList) {
-
-            if(num == Integer.parseInt(l.ingredient_num.getText().toString())){
-                //nivhList.clear();
-                Log.d("NumIngredient", "Name: " /*+ nivhList.get(num).getiName() + " : " +
-                        l.ingredient_name.getText().toString() + " : "
-                        + nivhList.size()
-
-                        );
-
-                break;
-            }
-
-        }*/
 
         names = nivhList.get(num).iName;
         return names;
@@ -82,7 +62,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
     public void saveNames(){
 
-        //nivhList.get()
+
         for (NoteIngredientsViewHolder l: nivhList) {
             l.setIngredientInfo(l.ingredient_name.getText().toString());
         }
@@ -91,11 +71,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
         for(int i = 0; i < num; i++){
             nivhList.get(i).setIngredientInfo(nivhList.get(i).iName);
-        }/*
-        //nivhList.get()
-        for (NoteIngredientsViewHolder l: nivhList) {
-            l.setIngredientInfo(l.ingredient_name.getText().toString());
-        }*/
+        }
     }
 
     public void error(){
@@ -171,7 +147,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
         }
         //Log.d("NumIngredient", "onCreateViewHolder1: " + nivhList.size() );
-        Log.d("NumIngredient", "ingredient_num: " + NewValue );
+        //Log.d("NumIngredient", "ingredient_num: " + NewValue );
 
                 //remove
                 if(nivhList.size() >= NewValue){
@@ -183,7 +159,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
                 nivhList.add(nivh);
 
 
-        Log.d("NumIngredient", "onCreateViewHolder2: " + nivhList.size() );
+        //Log.d("NumIngredient", "onCreateViewHolder2: " + nivhList.size() );
         return nivh;//OUR NOTEINGREDIENT ITEM
     }
 
