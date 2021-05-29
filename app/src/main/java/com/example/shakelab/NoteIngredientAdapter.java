@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.shakelab.Create.IngredientsCount;
+import static com.example.shakelab.Create.NewValue;
 
 //ADAPTER FOR NOTEINGREDIENT
 public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAdapter.NoteIngredientsViewHolder> {
@@ -45,13 +46,31 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     }
 
     public String getIngredientInfo3(int num){
-        String names = "123";
+        String names = "NON";
 
-        NoteIngredient currentItem = mNoteIngredientsList.get(num-1);
+        //NoteIngredient currentItem = mNoteIngredientsList.get(num-1);
 
-        //Log.d("NumIngredient", " Nname Of Ingredient " +  currentItem.getCountOfIngredient());
+        //Log.d("NumIngredient", "Name: " + nivhList.size() + " Nname 2 " +  currentItem.getText().toString());
 
-        return currentItem.getCountOfIngredient();
+
+
+        /*for (NoteIngredientsViewHolder l: nivhList) {
+
+            if(num == Integer.parseInt(l.ingredient_num.getText().toString())){
+                //nivhList.clear();
+                Log.d("NumIngredient", "Name: " /*+ nivhList.get(num).getiName() + " : " +
+                        l.ingredient_name.getText().toString() + " : "
+                        + nivhList.size()
+
+                        );
+
+                break;
+            }
+
+        }*/
+
+        names = nivhList.get(num).iName;
+        return names;
     }
 
     public String getIngredientNum(){
@@ -62,9 +81,21 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     }
 
     public void saveNames(){
+
+        //nivhList.get()
         for (NoteIngredientsViewHolder l: nivhList) {
             l.setIngredientInfo(l.ingredient_name.getText().toString());
         }
+    }
+    public void saveNames2(int num){
+
+        for(int i = 0; i < num; i++){
+            nivhList.get(i).setIngredientInfo(nivhList.get(i).iName);
+        }/*
+        //nivhList.get()
+        for (NoteIngredientsViewHolder l: nivhList) {
+            l.setIngredientInfo(l.ingredient_name.getText().toString());
+        }*/
     }
 
     public void error(){
@@ -78,7 +109,7 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
         private int iPercent;
 
-        private String iName;
+        private String iName = "123";
 
         public int getiPercent() {
             return iPercent;
@@ -119,19 +150,6 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
             ingredient_name = itemView.findViewById(R.id.ingredient_name);
             ingredient_num = itemView.findViewById(R.id.text_view_numberOfingredient);
             ingrediant_percent = itemView.findViewById(R.id.percent_ntb);
-
-            ingrediant_percent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PercentDialog percentDialog = new PercentDialog(ingredient_num.getText().toString());
-                    percentDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "2" );
-
-                    int numer = Integer.parseInt(ingredient_num.getText().toString());
-                    NoteIngredient note = mNoteIngredientsList.get(numer - 1);
-                    ingrediant_percent.setText("" + note.btnName);
-
-                }
-            });
         }
 
         public void PercentError() {
@@ -147,16 +165,25 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     public NoteIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
 
+
         nivh = new NoteIngredientsViewHolder(v, mListener);
+        if(nivh.iName != null){
 
-        nivhList.add(nivh);
+        }
+        //Log.d("NumIngredient", "onCreateViewHolder1: " + nivhList.size() );
+        Log.d("NumIngredient", "ingredient_num: " + NewValue );
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+                //remove
+                if(nivhList.size() >= NewValue){
+                    int j = nivhList.size() - NewValue;
+                    for(int i = 0; i < j; i++){
+                        nivhList.remove(i);
+                    }
+                }
+                nivhList.add(nivh);
 
+
+        Log.d("NumIngredient", "onCreateViewHolder2: " + nivhList.size() );
         return nivh;//OUR NOTEINGREDIENT ITEM
     }
 
@@ -175,6 +202,18 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
 
         holder.ingredient_name.setText(currentItem.getNameOfIngredient());
         holder.ingredient_num.setText(currentItem.getCountOfIngredient());
+
+        holder.ingrediant_percent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PercentDialog percentDialog = new PercentDialog(holder.ingredient_num.getText().toString());
+                percentDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "2" );
+
+                int numer = Integer.parseInt(holder.ingredient_num.getText().toString());
+                NoteIngredient note = mNoteIngredientsList.get(numer - 1);
+                holder.ingrediant_percent.setText("" + note.btnName);
+            }
+    });
     }
 
     @Override

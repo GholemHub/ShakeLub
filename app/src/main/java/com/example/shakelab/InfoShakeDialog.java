@@ -115,7 +115,7 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
 
         for(int i = 0; i < note.getCountOfLayers(); i++)
         {
-            dataEntries.add(new ValueDataEntry(1, Integer.parseInt (list.get(i))));
+            dataEntries.add(new ValueDataEntry(note.getShakeName(), Integer.parseInt (list.get(i))));
         }
 
         pie.data(dataEntries);

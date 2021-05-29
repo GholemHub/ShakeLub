@@ -58,7 +58,14 @@ public class PercentDialog extends AppCompatDialogFragment {
         builder.setView(view).setTitle("").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                for (NoteIngredientAdapter.NoteIngredientsViewHolder list: nivhList) {
+                    int ingredientNum = Integer.parseInt((String) list.ingredient_num.getText());
+                    if(ingredientNum == Integer.parseInt(num)){
 
+                        list.ingrediant_percent.setText("%");
+
+                    }
+                }
             }
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
@@ -70,6 +77,7 @@ public class PercentDialog extends AppCompatDialogFragment {
                 for (NoteIngredientAdapter.NoteIngredientsViewHolder list: nivhList) {
                     int ingredientNum = Integer.parseInt((String) list.ingredient_num.getText());
                     if(ingredientNum == Integer.parseInt(num)){
+
                         list.ingrediant_percent.setText("" + numberPicker.getValue());
                         NoteIngredient note =  mNoteIngredientsList.get(ingredientNum-1);
                         note.setPercentOfIngredient("" + numberPicker.getValue());

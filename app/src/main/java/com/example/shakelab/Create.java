@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.shakelab.NoteIngredientAdapter.mNoteIngredientsList;
+import static com.example.shakelab.NoteIngredientAdapter.nivhList;
 
 public class Create extends AppCompatActivity implements PercentDialog.PercentDialogListener {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -201,8 +202,10 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     int i = 0;
                     for (NoteIngredient list : mNoteIngredientList) {
 
+
                         /// PUTTING A NEW INGREDIENT WITH CURRENT NUMBER
                         int NumIngredient = Integer.parseInt(list.getCountOfIngredient());
+                        //mAdapter.saveNames2(NumIngredient);
                         //Log.d("NumIngredient","NumIngredient " + NumIngredient );
                         newShake.put("ingredient" + list.getCountOfIngredient(),
                                 mAdapter.getIngredientInfo3(NumIngredient));
@@ -243,6 +246,8 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     if(listPercentOfIngredients != null && !listPercentOfIngredients.isEmpty())
                         newShake.put("listPercentOfIngredients",listPercentOfIngredients);
 
+                    nivhList.clear();
+                    nivhList = new ArrayList<NoteIngredientAdapter.NoteIngredientsViewHolder>();
 
                     //POOSHING TO DB OUR MAP WITH INFORMATION
                     documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -265,7 +270,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
     private void createNumberPicker() {
 
         numberPicker = findViewById(R.id.countOfIngredients_picker);
-        numberPicker.setMaxValue(10);
+        numberPicker.setMaxValue(5);
         numberPicker.setMinValue(0);
         numberPicker.setValue(0);
 
@@ -281,11 +286,12 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
         });
     }
 public static int IngredientsCount;
-
+public static int NewValue = 0;
     public void buildRecyclerView(int newVal){
 
         mNoteIngredientList = new ArrayList<>();
-
+        NewValue = 0;
+        NewValue = newVal;
         for(int i = 0; i < newVal; i++){
             int p = i+1;
             mNoteIngredientList.add(new NoteIngredient("", "" + p));

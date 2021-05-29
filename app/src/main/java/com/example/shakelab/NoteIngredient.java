@@ -1,7 +1,7 @@
 package com.example.shakelab;
 
 
-//NOTEINGREDIENT.JAVA IT IS PIES OF ARRAY IN CREATE CONTEXT
+//NOTEINGREDIENT.JAVA IT IS PIECE OF ARRAY IN CREATE CONTEXT
 public class NoteIngredient {
 
     private String nameOfIngredient = "";
