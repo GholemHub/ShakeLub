@@ -132,14 +132,18 @@ public class InfoShakeDialog extends AppCompatDialogFragment {
         //note.getShakeIngredientsString();
                 String str1 = "";
                 char str2 = '/';
-        for(int i = 0; i < note.getShakeIngredientsString3().length(); i++){
-            if(note.getShakeIngredientsString3().charAt(i) == str2){
-                listIngredients.add(str1);
-                str1 = "";
-            }else{
-                str1 += note.getShakeIngredientsString3().charAt(i);
-            }
-        }
+
+                if(note.getShakeIngredientsString3() != null){
+
+                    for(int i = 0; i < note.getShakeIngredientsString3().length(); i++){
+                        if(note.getShakeIngredientsString3().charAt(i) == str2){
+                            listIngredients.add(str1);
+                            str1 = "";
+                        }else{
+                            str1 += note.getShakeIngredientsString3().charAt(i);
+                        }
+                    }
+                }
 
 
     return listIngredients;

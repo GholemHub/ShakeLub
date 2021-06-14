@@ -69,7 +69,7 @@ public class RegiterActivity extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        progressBar = findViewById(R.id.progressBar);
+        //progressBar = findViewById(R.id.progressBar);
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +118,7 @@ public class RegiterActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
 
                     Toast.makeText(RegiterActivity.this, "User created", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
+                    //progressBar.setVisibility(View.INVISIBLE);
                     userID = fAuth.getCurrentUser().getUid();
                     DocumentReference documentReference = fStore.collection("users").document(Email);
                     Map<String,Object> user = new HashMap<>();//NEW MAP WITH INFORMATION ABOUT USER
@@ -133,38 +133,14 @@ public class RegiterActivity extends AppCompatActivity {
                             Log.d(TAG, "onSuccess: user profile is created for " + userID);
                         }
                     });
-                    VerifyUser();
+
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 }else{
                     Toast.makeText(getApplicationContext(), "User does not created " +
                             task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
-    private void VerifyUser() {//SENDING VERIFY MAIL TO USER EMAIL
 
-        Toast.makeText(getApplicationContext(), "Verification email hes been Sent", Toast.LENGTH_SHORT).show();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        FirebaseUser fuser = fAuth.getCurrentUser();
-
-        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {//MAIL VERIFICATION
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "Verification email hes been sent", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: email not sent " + e.getMessage());
-            }
-        });
-    }
 }

@@ -83,7 +83,15 @@ public class Search extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        search_view = findViewById(R.id.search_view);
+
+
+        Searching();
+        Creating();
+
+
+    }
+
+    private void Creating() {
         go_to_create_Layout = findViewById(R.id.go_to_create_Layout);
 
         go_to_create_Layout.setOnClickListener(new View.OnClickListener() {//BUTTON TO CREATE NEW SHAKE
@@ -92,7 +100,10 @@ public class Search extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Create.class));
             }
         });
+    }
 
+    private void Searching() {
+        search_view = findViewById(R.id.search_view);
         search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -127,17 +138,11 @@ public class Search extends AppCompatActivity {
         });
     }
 
-    private DatabaseReference usersRef;
-
     public List<Note> ls = new ArrayList<>();
-
-
 
     private void setUpRecyclerView() {
 
         Query query = notebookRef.orderBy("countOfLayers", Query.Direction.DESCENDING);
-
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Notebook");
 
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
@@ -154,9 +159,7 @@ public class Search extends AppCompatActivity {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
                 Note note = documentSnapshot.toObject(Note.class);
-                String id = documentSnapshot.getId();
 
-                //Toast.makeText(Search.this, "Shake " + id, Toast.LENGTH_SHORT).show();
                 openDialog(note);//CREATING DIALOG WITN INFORMATION OF SHAKE
             }
         });

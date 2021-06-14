@@ -161,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="91dp"
         android:layout_marginTop="6dp"
-        android:text="Peivacy Policy"
+        android:text="Privacy Policy"
         android:textColor="@color/MainColour"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

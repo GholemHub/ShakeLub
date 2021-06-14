@@ -119,24 +119,13 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                                 public void onSuccess(Uri uri) {
                                     URL = uri.toString();
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {//IF USER FORGOT TO PUT THE IMAGE
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    //Toast.makeText(Create.this, "No image", Toast.LENGTH_SHORT).show();
-                                }
                             });
-                            String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();//MAKING LINK TO THE FIRESTORE
+                            //MAKING LINK TO THE FIRESTORE
+                            String downloadUri= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                             URL = downloadUri;
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //Toast.makeText(Create.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    });
 
-        }else{
-            //Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
     private void openFileChooser() {
@@ -188,7 +177,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     newShake.put("countOfLayers", numberPicker.getValue());
 
                     if(mNoteIngredientList != null && mNoteIngredientList.isEmpty()){
-                        //Toast.makeText(Create.this, "Field the ingredients", Toast.LENGTH_SHORT).show();
+
                         mAdapter.error();
                         return;
                     }
@@ -266,7 +255,7 @@ public class Create extends AppCompatActivity implements PercentDialog.PercentDi
                     documentReference.set(newShake).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //Toast.makeText(Create.this, "Done", Toast.LENGTH_SHORT).show();
+                           Log.d("PUSh","Done");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
