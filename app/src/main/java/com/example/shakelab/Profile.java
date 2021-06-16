@@ -77,11 +77,9 @@ public class Profile extends AppCompatActivity {
         mail_feedBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.setData(Uri.parse("mailto:"));
-                    emailIntent.setType("text/plain");
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "oleksandrsegeda37@gmail.com" });
-                    startActivity(emailIntent);
+
+                WriteMail();
+
             }
         });
 
@@ -93,6 +91,14 @@ public class Profile extends AppCompatActivity {
         });
 
 
+    }
+
+    private void WriteMail() {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "oleksandrsegeda37@gmail.com" });
+        startActivity(emailIntent);
     }
 
 
@@ -149,7 +155,7 @@ public class Profile extends AppCompatActivity {
                 EditText resetMail = new EditText(v.getContext());
                 AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
                 passwordResetDialog.setTitle("Reset Password?");
-                passwordResetDialog.setMessage("Enter link to change passwort?");
+                passwordResetDialog.setMessage("Enter link to change password");
                 passwordResetDialog.setView(resetMail);
 
                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
