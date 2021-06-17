@@ -35,7 +35,7 @@ public class NoteIngredient {
         this.countOfIngredient = countOfIngredient;
     }
 
-    public void changeTex1(String text){
+    public void changeText(String text){
         countOfIngredient = text;
     }
 

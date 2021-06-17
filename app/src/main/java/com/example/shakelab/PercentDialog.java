@@ -99,7 +99,7 @@ public class PercentDialog extends AppCompatDialogFragment {
 
     private void getNumerPickerValue(View view) {
         numberPicker = view.findViewById(R.id.percent_numerPicker);
-        numberPicker.setMaxValue(99);
+        numberPicker.setMaxValue(20);
         numberPicker.setMinValue(1);
     }
 }

@@ -36,7 +36,6 @@ private OnItemClickListener listener;
     @Override
     public void updateOptions(@NonNull FirestoreRecyclerOptions<Note> options) {
         super.updateOptions(options);
-
     }
 
     public  List<Note> noteList;

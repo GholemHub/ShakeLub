@@ -61,14 +61,7 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    public static int getColorWrapper(Context context, int id) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//if actual version is >= 6.0
-            return context.getColor(id);
-        } else {
-            //noinspection deprecation
-            return context.getResources().getColor(id);
-        }
-    }
+
 
     private void createFeedbackBnts() {
         phone_feedBack = findViewById(R.id.phone_feedBack);
