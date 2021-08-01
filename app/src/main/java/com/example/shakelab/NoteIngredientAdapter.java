@@ -139,8 +139,8 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
     @NonNull
     @Override
     public NoteIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
 
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_create_item, parent, false);
 
         nivh = new NoteIngredientsViewHolder(v, mListener);
         if(nivh.iName != null){
@@ -155,6 +155,9 @@ public class NoteIngredientAdapter extends RecyclerView.Adapter<NoteIngredientAd
                     for(int i = 0; i < j; i++){
                         nivhList.remove(i);
                     }
+
+                    Log.d("NumIngredient", "ingredient_num: " + NewValue );
+
                 }
                 nivhList.add(nivh);
 

@@ -292,8 +292,9 @@ public static int NewValue = 0;
     public void buildRecyclerView(int newVal){
 
         mNoteIngredientList = new ArrayList<>();
-        NewValue = 0;
+
         NewValue = newVal;
+
         for(int i = 0; i < newVal; i++){
             int p = i+1;
             mNoteIngredientList.add(new NoteIngredient("", "" + p));
