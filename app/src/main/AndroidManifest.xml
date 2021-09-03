@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shakelab">
+    package="com.gholemhub.shakelab">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,17 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShakeLab">
-        <activity android:name=".IntroActivity">
+        <activity android:name="com.gholemhub.shakelab.IntroActivity">
 
         </activity>
-        <activity android:name=".Profile" />
-        <activity android:name=".Create" />
-        <activity android:name=".Search" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegiterActivity" />
+        <activity android:name="com.gholemhub.shakelab.Profile" />
+        <activity android:name="com.gholemhub.shakelab.Create" />
+        <activity android:name="com.gholemhub.shakelab.Search" />
+        <activity android:name="com.gholemhub.shakelab.HomeActivity" />
+        <activity android:name="com.gholemhub.shakelab.RegiterActivity" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.gholemhub.shakelab.MainActivity"
             android:theme="@style/Theme.ShakeLab.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

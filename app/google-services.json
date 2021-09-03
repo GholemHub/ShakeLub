@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:586384573822:android:6fcbb26cb44ceb2a989f2f",
         "android_client_info": {
-          "package_name": "com.example.shakelab"
+          "package_name": "com.gholemhub.shakelab"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "586384573822-kelb08vjr84f4qta49mpo45c0j5ofj29.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.shakelab",
+            "package_name": "com.gholemhub.shakelab",
             "certificate_hash": "8f89b3613872522787e84d67d6bbf8a1165a1341"
           }
         },
